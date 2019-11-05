@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Óptica</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="templates/main-logged.xhtml">
+            <ui:define name="content">
+                <div align="center">
+                    <h:form class="panel-registro" style="text-align: left;">
+                        <h3 style="color: white; text-align: center">INFORMACIÓN PERSONAL</h3>
+                        <br/>
+                        <div class="row ">
+                            <div class="col-md-2 offset-md-1">
+                                <label class="lbl-perfil"><strong>NOMBRE: </strong></label>
+                            </div>
+                            <div class="col-md-8">
+                                <h:inputText id="nom"
+                                             readonly="true"
+                                             class="input-perfil"
+                                             value="#{clientesController.nombreCompleto}"
+                                             />
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-2 offset-md-1">
+                                <label class="lbl-perfil"><strong>Dirección: </strong></label>
+                            </div>
+                            <div class="col-md-8">
+                                <h:inputText class="input-perfil" 
+                                             id="direccion" 
+                                             readonly="true" 
+                                             value="#{clientesController.selected.direccion}"
+                                             > </h:inputText>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-2 offset-md-1">
+                                <label class="lbl-perfil"><strong>Fecha de Nacimiento: </strong></label>
+                            </div>
+                            <div class="col-md-4">
+                                <h:inputText class="input-perfil" 
+                                             id="born" 
+                                             readonly="true"
+                                             value="#{clientesController.selected.fechaNacimiento}"
+                                             >
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:inputText>
+                            </div>
+                        </div>
+                        <br/>
+                        <h3 style="color: white; text-align: center">INFORMACIÓN DE CONTACTO</h3>
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-1 offset-md-1">
+                                <label class="lbl-perfil"><strong>Correo: </strong></label>
+                            </div>
+                            <div class="col-md-4">
+                                <h:inputText class="input-perfil" 
+                                             id="email" 
+                                             readonly="true"
+                                             value="#{clientesController.selected.correo}"
+                                             > </h:inputText>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="lbl-perfil"><strong>Teléfono: </strong></label>
+                            </div>
+                            <div class="col-md-3">
+                                <h:inputText class="input-perfil" 
+                                             id="phone" 
+                                             readonly="true"
+                                             value="#{clientesController.selected.telefono}"
+                                             > </h:inputText>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-4 offset-md-4" id="btn-editar">
+                                <div align="center">
+                                    <h:commandButton class="btn btn-outline-light btn-block" value="Editar datos" action="EditarPerfil"></h:commandButton>
+                                </div>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

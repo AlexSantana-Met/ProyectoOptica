@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="templates/main.xhtml">
+            <ui:define name="content">
+                <div align="center">
+                    <h:form >
+                        <div class="panel-contacto" align="left">
+                            <h2>Enviar Mensaje</h2>
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-9">
+                                    <strong>Nombre: </strong>
+                                </div>
+                            </div>
+                            <div style="margin: 10px;"></div>
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-9">
+                                    <h:outputLabel >
+                                        <h:inputText class="input-login" 
+                                                     style="width: 160% !important;" 
+                                                     id="nom" 
+                                                     value="#{contactoController.selected.nombre}"
+                                                     required="true"
+                                                     autocomplete="off"
+                                                     label="Nombre" 
+                                                     ></h:inputText>
+                                    </h:outputLabel>
+                                </div>
+                            </div>
+                            <div style="margin: 10px;"></div>
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-9">
+                                    <strong>Correo: </strong>
+                                </div>
+                            </div>
+                            <div style="margin: 10px;"></div>
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-9">
+                                    <h:outputLabel>
+                                        <h:inputText class="input-login" 
+                                                     style="width: 160% !important;" 
+                                                     id="email" 
+                                                     value="#{contactoController.selected.correo}" 
+                                                     autocomplete="off"
+                                                     label="Correo" 
+                                                     ></h:inputText>
+                                    </h:outputLabel>
+                                </div>
+                                <div class="col-md-1"></div>
+                            </div>
+                            <div style="margin: 10px;"></div>
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-9">
+                                    <strong>Mensaje: </strong>
+                                </div>
+                            </div>
+                            <div style="margin: 10px;"></div>
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-9">
+                                    <h:outputLabel>
+                                        <h:inputTextarea class="mensaje" 
+                                                         id="men" cols="300" 
+                                                         style="height: 120px; resize: none; font-family: 'Arial'; font-size: 12px;  margin-left: 10px"
+                                                         value="#{contactoController.selected.mensaje}"
+                                                         required="true"
+                                                         label="Mensaje" 
+                                                         ></h:inputTextarea>
+                                    </h:outputLabel>
+                                </div>
+                                <div class="col-md-1"></div>
+                            </div> 
+                            <div class="row" id="btn-contacto">
+                                <div class="col-md-6 offset-md-3">
+                                    <h:commandButton action="#{contactoController.create}" 
+                                                     class="btn btn-block btn-outline-light" 
+                                                     value="Enviar"></h:commandButton>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row" id="msjContactar">
+                                <div class="col-md-11">
+                                    <h:messages infoClass="info" errorClass="error" warnClass="warning" fatalClass="normalM" id="mj"/>
+                                </div>
+                            </div>
+                            <br/>
+                        </div>
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

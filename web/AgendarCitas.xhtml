@@ -1,0 +1,206 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <h:outputStylesheet library="css" name="default.css"/>
+        <h:outputStylesheet library="css" name="cssLayout.css"/>
+
+        <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+        <h:outputStylesheet library="css" name="font-awesome.min.css"/>
+
+        <title>Óptica</title>
+
+        <!--<h:outputScript library="js" name="jquery.slim.min.js"/>-->
+        <!--<h:outputScript library="js" name="bootstrap.bundle.min.js"/>-->
+        <h:outputScript library="js" name="funcionesOptica.js"/>
+
+        <script name="jquery/jquery.js" library="primefaces"></script>
+    </h:head>
+    <h:body>
+        <script>
+            $(document).ready(function () {
+                $("#tableCli table tbody tr").click(function () {
+                    var valor = $(this).find("td").eq(0).html();
+                    console.log(valor);
+//                    $("#valHora").val(valor);
+                    $("#tableCli div.row div.col-md-4 input.input-perfil").val(valor);
+                });
+            });
+        </script>
+        <div class="fondo">
+        </div>
+
+        <div id="top">
+            <ui:insert name="top"><!-- Navigation -->
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+                    <div class="container">
+                        <a class="navbar-brand" href="#">Óptica</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarResponsive">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item" style="margin-left: 10px; margin-right: 10px;">
+                                    <h:form>
+                                        <h:commandButton action="Perfil" class="btn btn-outline-light" value="Regresar"></h:commandButton>
+                                    </h:form>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </ui:insert>
+        </div>
+
+        <div id="content" class="center_content">
+            <!--                <div style="display: none !important;">
+                                <h:inputText value="{clientesController.nombreCompleto}"></h:inputText>
+                            </div>-->
+            <h:form class="panel-agendar" style="text-align: left;">
+                <h3 style="color: white; text-align: center">AGENDAR CITA</h3>
+                <br/>
+                <div class="row ">
+                    <div class="col-md-2" style="text-align: right;">
+                        <label class="lbl-perfil"><strong>NOMBRE: </strong></label>
+                    </div>
+                    <div class="col-md-7">
+                        <h:inputText id="idCliente"
+                                     readonly="true"
+                                     class="input-perfil"
+                                     value="#{clientesController.nombreCompleto}"
+                                     />
+                    </div>
+                    <div class="col-md-1" style="text-align: right;">
+                        <label class="lbl-perfil"><strong>ID: </strong></label>
+                    </div>
+                    <div class="col-md-1" style="text-align: center !important;">
+                        <h:inputText id="nom"
+                                     readonly="true"
+                                     class="input-perfil"
+                                     value="#{clientesController.selected.idClientePk}"
+                                     />
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="lbl-perfil"><strong>Fecha para su cita: </strong></label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="lbl-perfil"><strong>Hora para su cita: </strong></label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="lbl-perfil"><strong>Descripción: </strong></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4" style="text-align: center;">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p:calendar id="popup" 
+                                            value="#{citasController.dateCita}" 
+                                            class="input-perfil" 
+                                            locale="es" 
+                                            pattern="dd/MM/yyyy" required="true" requiredMessage="Seleccione una fecha para la cita.">
+                                    <p:ajax event="dateSelect" 
+                                            listener="#{citasController.onDateSelect}" 
+                                            update="tablaCli" />
+                                </p:calendar>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-12" style="text-align: left;">
+                                <label class="lbl-perfil"><strong>Tipo de Cita: </strong></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-11 offset-md-1">
+                                <h:selectOneMenu id="tipoCita" 
+                                                 value="#{citasController.selected.tipoCita}" 
+                                                 title="Tipo de cita" 
+                                                 required="true" 
+                                                 requiredMessage="Seleccione un tipo de cita"
+                                                 class="form-control select-form">
+                                    <f:selectItems value="#{tiposCitasController.itemsAvailableSelectOne}"/>
+                                </h:selectOneMenu>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="lbl-perfil"><strong>Doctor: </strong></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12"></div>
+                        </div>
+
+                        <br/>
+                        <!--                        <br/>
+                                                <h:commandButton id="enviar" 
+                                                                 action="{citasController.fechaRes()}"
+                                                                 value="Seleccionar Fecha" 
+                                                                 class="btn btn-outline-light"
+                                                                 >
+                                                </h:commandButton>-->
+                    </div>   
+                    <div class="col-md-4" id="tableCli">
+                        <h:dataTable value="#{citasController.horasDisponibles}" var="hrs" id="tablaCli">
+                            <!--<f:facet name="caption">Horas Disponibles</f:facet>-->
+                            <h:column><f:facet name="header">Horas disponibles</f:facet>#{hrs}</h:column> 
+                        </h:dataTable>
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-7" style="text-align: right;">
+                                <label><strong style="text-transform: uppercase; font-size: 11px;">Hora seleccionada: </strong></label>
+                            </div>
+                            <div class="col-md-4">
+                                <h:inputText id="valHora" 
+                                             value="#{citasController.hourDate}" 
+                                             class="input-perfil"
+                                             required="true" requiredMessage="Seleccione una hora para la cita.">
+                                    <!--<f:convertDateTime pattern="HH:mm" />-->
+                                </h:inputText>
+                            </div>
+                        </div>
+                        <!--                        <h:outputLabel>
+                                                    <strong style="text-transform: uppercase; font-size: 13px;">Hora seleccionada: </strong>
+                                                    <h:inputText id="valHora" 
+                                                                 value="{citasController.selected.horaCita}" 
+                                                                 class="input-perfil">
+                                                        <f:convertDateTime pattern="HH:mm" />
+                                                    </h:inputText>
+                                                </h:outputLabel>-->
+                    </div>
+                    <div class="col-md-4">
+                        <h:inputTextarea class="mensaje" id="desc" 
+                                         cols="200"
+                                         style="height: 250px; resize: none; font-family: 'Arial'; font-size: 12px;" 
+                                         value="#{citasController.selected.descripcion}"
+                                         required="true"
+                                         requiredMessage="Por favor, escriba una descripción corta de la cita"/>
+                    </div>
+                </div>  
+                <br/>
+                <div class="row">
+                    <div class="col-md-4 offset-md-4" id="btn-agendar">
+                        <h:commandButton class="btn btn-block btn-outline-light" value="Agendar Cita" action="#{citasController.create()}"/>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-md-12" id="msjContactar">
+                        <h:messages infoClass="info" errorClass="error" warnClass="warning" fatalClass="normalM" id="mj"/>
+                    </div>
+                </div>
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

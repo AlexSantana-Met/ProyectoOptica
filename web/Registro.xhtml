@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Óptica - Registro</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="templates/main.xhtml">
+            <ui:define name="content">
+                <div >
+                    <br/>
+                    <h:form id="formRegis" class="panel-registro">
+                        <!--<div class="panel-registro">-->
+                        <h2>
+                            Datos de contacto
+                        </h2>
+                        <h:panelGrid columns="3" cellpadding="10" style="text-align:left;" >
+                            <h:outputLabel>
+                                <strong>Nombre: </strong>
+                                <h:inputText id="nom" 
+                                             label="Nombre" 
+                                             validatorMessage="Nombre requerido" 
+                                             class="input-login"
+                                             p:placeholder="Nombre"
+                                             required="true"
+                                             autocomplete="off"
+                                             value="#{clientesController.selected.nombre}" />
+                            </h:outputLabel>
+                            <h:outputLabel>
+                                <strong>Apellido Paterno: </strong>
+                                <h:inputText id="apP" 
+                                             label="Apellido Paterno" 
+                                             validatorMessage="Apellido requerido" 
+                                             class="input-login"
+                                             p:placeholder="A. Paterno"
+                                             required="true"
+                                             autocomplete="off"
+                                             value="#{clientesController.selected.apellidoPaterno}"/>
+                            </h:outputLabel>
+                            <h:outputLabel>
+                                <strong>Apellido Materno: </strong>
+                                <h:inputText id="apM" 
+                                             label="Apellido Materno" 
+                                             validatorMessage="Apellido requerido" 
+                                             class="input-login"
+                                             p:placeholder="A. Materno"
+                                             required="true"
+                                             autocomplete="off"
+                                             value="#{clientesController.selected.apellidoMaterno}" />
+                            </h:outputLabel>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2" cellpadding="10" width="20%" style="text-align:left;">
+                            <h:outputLabel >
+                                <strong>Correo: </strong>
+                                <h:inputText id="email" 
+                                             label="Correo" 
+                                             validatorMessage="Correo requerido" 
+                                             class="input-login"
+                                             style="width: 250px;"
+                                             p:placeholder="Correo"
+                                             autocomplete="off"
+                                             required="true"
+                                             value="#{clientesController.selected.correo}">
+                                    <f:validateRegex pattern="^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$"/>
+                                </h:inputText>
+                            </h:outputLabel>
+                            <h:outputLabel>
+                                <strong>Contraseña: </strong>
+                                <h:inputSecret id="pass" 
+                                               label="Contraseña" 
+                                               validatorMessage="Contraseña requerido" 
+                                               class="input-login"
+                                               p:placeholder="Contraseña"
+                                               autocomplete="off"
+                                               required="true"
+                                               value="#{clientesController.selected.pass}"/>
+                            </h:outputLabel>
+                        </h:panelGrid>
+                        <h:panelGrid columns="1" cellpadding="10" width="100%" style="text-align: right;">
+                            <h6>Todos los campos son obligatorios</h6>
+                        </h:panelGrid>
+                        <!--<h:panelGrid columns="1" width="100%" cellpadding="10">-->
+                        <h:panelGroup>
+                            <div class="row">
+                                <!--<div class="col-md-4"></div>-->
+                                <div class="col-md-4 offset-md-4" id="btn-registrar">
+                                    <h:commandButton id="envReg" 
+                                                     value="Registrar" 
+                                                     class="btn btn-outline-light btn-block"
+                                                     style="width: 100%"
+                                                     action="#{clientesController.create}">
+                                    </h:commandButton>
+                                </div>
+                                <!--<div class="col-md-4"></div>-->
+                            </div>
+                        </h:panelGroup>
+                        <br/>
+                        <div class="row" id="msjContactar">
+                            <div class="col-md-11">
+                                <h:messages infoClass="info" errorClass="error" warnClass="warning" fatalClass="normalM" id="mj"/>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateCitasTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateCitasLabel_idCitaPk}" for="idCitaPk" />
+                    <h:inputText id="idCitaPk" value="#{citasController.selected.idCitaPk}" title="#{bundle.CreateCitasTitle_idCitaPk}" required="true" requiredMessage="#{bundle.CreateCitasRequiredMessage_idCitaPk}"/>
+                    <h:outputLabel value="#{bundle.CreateCitasLabel_fechaCita}" for="fechaCita" />
+                    <h:inputText id="fechaCita" value="#{citasController.selected.fechaCita}" title="#{bundle.CreateCitasTitle_fechaCita}" required="true" requiredMessage="#{bundle.CreateCitasRequiredMessage_fechaCita}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateCitasLabel_horaCita}" for="horaCita" />
+                    <h:inputText id="horaCita" value="#{citasController.selected.horaCita}" title="#{bundle.CreateCitasTitle_horaCita}" required="true" requiredMessage="#{bundle.CreateCitasRequiredMessage_horaCita}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateCitasLabel_descripcion}" for="descripcion" />
+                    <h:inputText id="descripcion" value="#{citasController.selected.descripcion}" title="#{bundle.CreateCitasTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateCitasRequiredMessage_descripcion}"/>
+                    <h:outputLabel value="#{bundle.CreateCitasLabel_respuestaCita}" for="respuestaCita" />
+                    <h:inputText id="respuestaCita" value="#{citasController.selected.respuestaCita}" title="#{bundle.CreateCitasTitle_respuestaCita}" />
+                    <h:outputLabel value="#{bundle.CreateCitasLabel_status}" for="status" />
+                    <h:inputText id="status" value="#{citasController.selected.status}" title="#{bundle.CreateCitasTitle_status}" required="true" requiredMessage="#{bundle.CreateCitasRequiredMessage_status}"/>
+                    <h:outputLabel value="#{bundle.CreateCitasLabel_idClienteFk}" for="idClienteFk" />
+                    <h:selectOneMenu id="idClienteFk" value="#{citasController.selected.idClienteFk}" title="#{bundle.CreateCitasTitle_idClienteFk}" required="true" requiredMessage="#{bundle.CreateCitasRequiredMessage_idClienteFk}">
+                        <f:selectItems value="#{clientesController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateCitasLabel_idEmpleadoFk}" for="idEmpleadoFk" />
+                    <h:selectOneMenu id="idEmpleadoFk" value="#{citasController.selected.idEmpleadoFk}" title="#{bundle.CreateCitasTitle_idEmpleadoFk}" required="true" requiredMessage="#{bundle.CreateCitasRequiredMessage_idEmpleadoFk}">
+                        <f:selectItems value="#{empleadosController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateCitasLabel_tipoCita}" for="tipoCita" />
+                    <h:selectOneMenu id="tipoCita" value="#{citasController.selected.tipoCita}" title="#{bundle.CreateCitasTitle_tipoCita}" required="true" requiredMessage="#{bundle.CreateCitasRequiredMessage_tipoCita}">
+                        <f:selectItems value="#{tiposCitasController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{citasController.create}" value="#{bundle.CreateCitasSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{citasController.prepareList}" value="#{bundle.CreateCitasShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateCitasIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

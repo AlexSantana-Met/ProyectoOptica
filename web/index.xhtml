@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Óptica</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body>
+        <ui:composition template="templates/main.xhtml">
+            <ui:define name="content">
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+                    </ol>
+                    <div class="carousel-inner" role="listbox">
+                        <div class="carousel-item active" style="background-image: url(resources/images/op4.jpg)">
+                            <div class="carousel-caption d-none d-md-block info-slide">
+                                <h3 class="display-4">Especialistas</h3>
+                                <p class="lead">Contamos con los mejores especialistas.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item" style="background-image: url(resources/images/op3.jpg)">
+                            <div class="carousel-caption d-none d-md-block info-slide">
+                                <h3 class="display-4">Armazones</h3>
+                                <p class="lead">Una gran variedad de diseños en armazones.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item" style="background-image: url(resources/images/op1.jpg)">
+                            <div class="carousel-caption d-none d-md-block info-slide">
+                                <h3 class="display-4">Expertos en Salud Visual.</h3>
+                                <p class="lead">Todo lo necesario para mejorar su visión.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item" style="background-image: url(resources/images/op2.jpeg)">
+                            <div class="carousel-caption d-none d-md-block info-slide">
+                                <h3 class="display-4">Las mejores marcas.</h3>
+                                <p class="lead">Rayban, Tous, Carolina Herrera.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                <section class="py-5 ">
+                    <div class="container">
+                        <h1 class="font-weight-light">Bienvenido a nuestra página web</h1>
+                        <p class="lead">Registrate para poder acceder a todos los beneficios de nuestra óptica.</p>
+                        <p class="lead">Gracias por visitarnos.</p>
+                    </div>
+                </section>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateEmpleadosTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateEmpleadosLabel_idEmpleadoPk}" for="idEmpleadoPk" />
+                    <h:inputText id="idEmpleadoPk" value="#{empleadosController.selected.idEmpleadoPk}" title="#{bundle.CreateEmpleadosTitle_idEmpleadoPk}" required="true" requiredMessage="#{bundle.CreateEmpleadosRequiredMessage_idEmpleadoPk}"/>
+                    <h:outputLabel value="#{bundle.CreateEmpleadosLabel_nombre}" for="nombre" />
+                    <h:inputText id="nombre" value="#{empleadosController.selected.nombre}" title="#{bundle.CreateEmpleadosTitle_nombre}" required="true" requiredMessage="#{bundle.CreateEmpleadosRequiredMessage_nombre}"/>
+                    <h:outputLabel value="#{bundle.CreateEmpleadosLabel_apellidoPaterno}" for="apellidoPaterno" />
+                    <h:inputText id="apellidoPaterno" value="#{empleadosController.selected.apellidoPaterno}" title="#{bundle.CreateEmpleadosTitle_apellidoPaterno}" required="true" requiredMessage="#{bundle.CreateEmpleadosRequiredMessage_apellidoPaterno}"/>
+                    <h:outputLabel value="#{bundle.CreateEmpleadosLabel_apellidoMaterno}" for="apellidoMaterno" />
+                    <h:inputText id="apellidoMaterno" value="#{empleadosController.selected.apellidoMaterno}" title="#{bundle.CreateEmpleadosTitle_apellidoMaterno}" required="true" requiredMessage="#{bundle.CreateEmpleadosRequiredMessage_apellidoMaterno}"/>
+                    <h:outputLabel value="#{bundle.CreateEmpleadosLabel_correo}" for="correo" />
+                    <h:inputText id="correo" value="#{empleadosController.selected.correo}" title="#{bundle.CreateEmpleadosTitle_correo}" />
+                    <h:outputLabel value="#{bundle.CreateEmpleadosLabel_telefono}" for="telefono" />
+                    <h:inputText id="telefono" value="#{empleadosController.selected.telefono}" title="#{bundle.CreateEmpleadosTitle_telefono}" />
+                    <h:outputLabel value="#{bundle.CreateEmpleadosLabel_status}" for="status" />
+                    <h:inputText id="status" value="#{empleadosController.selected.status}" title="#{bundle.CreateEmpleadosTitle_status}" required="true" requiredMessage="#{bundle.CreateEmpleadosRequiredMessage_status}"/>
+                    <h:outputLabel value="#{bundle.CreateEmpleadosLabel_idPuestoFk}" for="idPuestoFk" />
+                    <h:selectOneMenu id="idPuestoFk" value="#{empleadosController.selected.idPuestoFk}" title="#{bundle.CreateEmpleadosTitle_idPuestoFk}" required="true" requiredMessage="#{bundle.CreateEmpleadosRequiredMessage_idPuestoFk}">
+                        <f:selectItems value="#{puestosController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{empleadosController.create}" value="#{bundle.CreateEmpleadosSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{empleadosController.prepareList}" value="#{bundle.CreateEmpleadosShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateEmpleadosIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

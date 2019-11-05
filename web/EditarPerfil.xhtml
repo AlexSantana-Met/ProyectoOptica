@@ -1,0 +1,199 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pi="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet library="css" name="default.css"/>
+        <h:outputStylesheet library="css" name="cssLayout.css"/>
+
+        <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+        <h:outputStylesheet library="css" name="font-awesome.min.css"/>
+
+        <title>Óptica</title>
+
+        <!--<h:outputScript library="js" name="jquery.slim.min.js"/>-->
+        <h:outputScript library="js" name="bootstrap.bundle.min.js"/>
+        <h:outputScript library="js" name="funcionesOptica.js"/>
+
+        <script name="jquery/jquery.js" library="primefaces"></script>
+
+    </h:head>
+
+    <h:body>
+        <!--<f:event listener="{clientesController.nombreCompleto()}" type="type"></f:event>-->
+        <div class="fondo">
+        </div>
+        <!--        <ui:composition template="templates/main-logged.xhtml">
+                    <ui:define name="content">-->
+        <div id="top">
+            <ui:insert name="top"><!-- Navigation -->
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+                    <div class="container">
+                        <a class="navbar-brand" href="#">Óptica</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarResponsive">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item" style="margin-left: 10px; margin-right: 10px;">
+                                    <h:form>
+                                        <h:commandButton action="Perfil" class="btn btn-outline-light" value="Regresar"></h:commandButton>
+                                    </h:form>
+                                    <!--<h:link class="nav-link" outcome="index" value="Cerrar Sesión"></h:link>-->
+                                    <!--<a class="nav-link" href="/Optica/faces/Login.xhtml">Iniciar Sesión</a>-->
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </ui:insert>
+        </div>
+        <div id="content" class="center_content">
+            <h:form class="panel-editar" style="text-align: left;">
+                <!--                <div style="display: none !important;">
+                                    <h:inputText value="{clientesController.nombreCompleto}"></h:inputText>
+                                </div>-->
+                <h3 style="color: white; text-align: center">INFORMACIÓN PERSONAL</h3>
+                <br/>
+                <div class="row ">
+                    <div class="col-md-4 offset-md-1">
+                        <label class="lbl-perfil"><strong>*NOMBRE </strong></label>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="lbl-perfil"><strong>*APELLIDO PATERNO </strong></label>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="lbl-perfil"><strong>*APELLIDO MATERNO </strong></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 offset-md-1">
+                        <h:inputText id="nombre"
+                                     label="Nombre"
+                                     class="input-perfil"
+                                     value="#{clientesController.selected.nombre}"
+                                     autocomplete="off"
+                                     required="true"
+                                     pi:placeholder="Nombre"
+                                     />
+                    </div>
+                    <div class="col-md-3">
+                        <h:inputText id="a-paterno"
+                                     label="Apellido Paterno"
+                                     class="input-perfil"
+                                     value="#{clientesController.selected.apellidoPaterno}"
+                                     autocomplete="off"
+                                     required="true"
+                                     pi:placeholder="Apellido paterno"
+                                     />
+                    </div>
+                    <div class="col-md-3">
+                        <h:inputText id="a-materno"
+                                     label="Apellido Materno"
+                                     class="input-perfil"
+                                     value="#{clientesController.selected.apellidoMaterno}"
+                                     autocomplete="off"
+                                     required="true"
+                                     pi:placeholder="Apellido materno"
+                                     />
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label class="lbl-perfil"><strong>Dirección: </strong></label>
+                    </div>
+                    <div class="col-md-8">
+                        <h:inputText class="input-perfil" 
+                                     id="direccion" 
+                                     label="Dirección"
+                                     value="#{clientesController.selected.direccion}"
+                                     autocomplete="off"
+                                     pi:placeholder="Dirección"
+                                     required="false"
+                                     > </h:inputText>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label class="lbl-perfil"><strong>Fecha de Nacimiento: </strong></label>
+                    </div>
+                    <div class="col-md-4">
+                        <p:calendar id="popup" 
+                                    value="#{clientesController.selected.fechaNacimiento}" 
+                                    class="input-perfil" 
+                                    locale="es" 
+                                    pattern="dd/MM/yyyy" required="true" requiredMessage="Seleccione una fecha para la cita.">
+                        </p:calendar>
+                        <!--                        <h:inputText class="input-perfil" 
+                                                             id="born" 
+                                                             label="Fecha de nacimiento"
+                                                             value="{clientesController.selected.fechaNacimiento}"
+                                                             autocomplete="off"
+                                                             p:placeholder="DD/MM/YYYY"
+                                                             >
+                                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                </h:inputText>-->
+                    </div>
+                </div>
+                <br/>
+                <h3 style="color: white; text-align: center">INFORMACIÓN DE CONTACTO</h3>
+                <br/>
+                <div class="row">
+                    <div class="col-md-1 offset-md-1">
+                        <label class="lbl-perfil"><strong>*Correo: </strong></label>
+                    </div>
+                    <div class="col-md-4">
+                        <h:inputText class="input-perfil" 
+                                     id="email" 
+                                     label="Correo"
+                                     value="#{clientesController.selected.correo}"
+                                     autocomplete="off"
+                                     required="true"
+                                     pi:placeholder="email@ejemplo.com"
+                                     >
+                            <f:validateRegex pattern="^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$"/>
+                        </h:inputText>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="lbl-perfil"><strong>Teléfono: </strong></label>
+                    </div>
+                    <div class="col-md-3">
+                        <h:inputText class="input-perfil" 
+                                     id="phone" 
+                                     label="Teléfono"
+                                     value="#{clientesController.selected.telefono}"
+                                     pi:placeholder="Teléfono"
+                                     > </h:inputText>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-11"  style="text-align: right !important;">
+                        <label class="lbl-perfil" style="font-size: 11px;"><strong>Los campos con * son obligatorios.</strong></label>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-md-4 offset-md-4" id="btn-guardar">
+                        <h:commandButton class="btn btn-outline-light btn-block" value="Guardar datos" action="#{clientesController.update()}"></h:commandButton>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-md-11" id="msjEditar">
+                        <h:messages infoClass="info" errorClass="error" warnClass="warning" fatalClass="normalM" id="mj"/>
+                    </div>
+                </div>
+            </h:form>
+        </div>
+        <!--            </ui:define>
+                </ui:composition>-->
+    </h:body>
+</html>
+

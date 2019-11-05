@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet library="css" name="default.css"/>
+        <h:outputStylesheet library="css" name="cssLayout.css"/>
+
+        <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+        <!--        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"></link>-->
+        <h:outputStylesheet library="css" name="font-awesome.min.css"/>
+        <!--<h:outputStylesheet library="css" name="font-awesome.css"/>-->
+
+        <title>Óptica</title>
+
+        <h:outputScript library="js" name="jquery.slim.min.js"/>
+        <h:outputScript library="js" name="bootstrap.bundle.min.js"/>
+        <h:outputScript library="js" name="funcionesOptica.js"/>
+    </h:head>
+
+    <h:body>
+        <div class="fondo">
+        </div>
+
+        <div id="top">
+            <ui:insert name="top"><!-- Navigation -->
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+                    <div class="container">
+                        <a class="navbar-brand" href="#">Óptica</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarResponsive">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <h:link class="nav-link"  outcome="Citas" value="Citas"></h:link>
+                                    <!--<a class="nav-link" href="/Optica">Inicio</a>-->
+                                </li>
+                                <li class="nav-item">
+                                    <h:link class="nav-link" outcome="Perfil" value="Perfil"></h:link>
+                                    <!--<a class="nav-link" href="/Optica/faces/Login.xhtml">Iniciar Sesión</a>-->
+                                </li>
+                                <li class="nav-item" style="margin-left: 10px; margin-right: 10px;">
+                                    <h:form>
+                                        <h:commandButton action="#{clientesController.logout()}" class="btn btn-outline-light" value="Cerrar sesión">
+                                        </h:commandButton>
+                                    </h:form>
+                                    <!--<h:link class="nav-link" outcome="index" value="Cerrar Sesión"></h:link>-->
+                                    <!--<a class="nav-link" href="/Optica/faces/Login.xhtml">Iniciar Sesión</a>-->
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </ui:insert>
+        </div>
+
+        <div id="content" class="center_content">
+            <ui:insert name="content">Content</ui:insert>
+        </div>
+
+        <div id="bottom">
+            <ui:insert name="bottom"></ui:insert>
+        </div>
+
+    </h:body>
+
+</html>
