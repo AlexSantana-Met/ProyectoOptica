@@ -14,3 +14,12 @@ function nobackbutton() {
         window.location.hash = "no-back-button";
     };
 }
+
+$(document).ready(function () {
+    $("#tableCli table tbody tr").click(function () {
+        var valor = $(this).find("td").eq(0).html();
+        console.log(valor);
+//                    $("#valHora").val(valor);
+        $("#tableCli div.row div.col-md-4 input.input-perfil").val(valor);
+    });
+});

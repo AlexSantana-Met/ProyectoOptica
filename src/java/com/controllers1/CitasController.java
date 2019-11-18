@@ -114,13 +114,15 @@ public class CitasController implements Serializable {
                 current.setIdClienteFk(cli);
                 current.setFechaCita(dateCita);
                 current.setIdEmpleadoFk(getFacade().getEmpleado(BigDecimal.valueOf(1)));
-//                current.getFechaCita().setHours(Integer.parseInt(hourDate.split(":")[0]));
-                current.getFechaCita().setHours(0);
+                current.getFechaCita().setHours(Integer.parseInt(hourDate.split(":")[0]));
                 current.setHoraCita(current.getFechaCita());
-                current.getFechaCita().setHours(0);
                 getFacade().create(current);
                 current = null;
                 current = new Citas();
+                horasDisponibles = new ArrayList<>();
+                citasCliente = new ArrayList<>();
+                dateCita = null;
+                hourDate = "";
                 fc.addMessage("", new FacesMessage(FacesMessage.SEVERITY_INFO, "Se ha agendado la cita correctamente.", null));
                 ec.redirect(ec.getRequestContextPath() + "/faces/Citas.xhtml");
 //            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CitasCreated"));
@@ -133,6 +135,43 @@ public class CitasController implements Serializable {
         }
     }
 
+//    public void create() {
+//        FacesContext fc = FacesContext.getCurrentInstance();
+//        ExternalContext ec = fc.getExternalContext();
+//        HttpSession session = (HttpSession) ec.getSession(false);
+//        if (session.getAttribute("cliente") == null) {
+//            try {
+//                current = new Citas();
+//                ec.redirect(ec.getRequestContextPath() + "/faces/Login.xhtml");
+//            } catch (IOException ex) {
+//            }
+//        } else {
+//            try {
+//                Clientes cli = (Clientes) session.getAttribute("cliente");
+//                current.setStatus(new BigInteger("1"));
+//                current.setIdCitaPk(BigDecimal.valueOf(getFacade().count() + 1));
+//                current.setIdClienteFk(cli);
+//                current.setFechaCita(dateCita);
+//                current.setIdEmpleadoFk(getFacade().getEmpleado(BigDecimal.valueOf(1)));
+//                current.getFechaCita().setHours(Integer.parseInt(hourDate.split(":")[0]));
+//                current.getFechaCita().setHours(0);
+//                current.setHoraCita(current.getFechaCita());
+//                current.getFechaCita().setHours(0);
+//                getFacade().create(current);
+//                current = null;
+//                current = new Citas();
+//                dateCita = null;
+//                fc.addMessage("", new FacesMessage(FacesMessage.SEVERITY_INFO, "Se ha agendado la cita correctamente.", null));
+//                ec.redirect(ec.getRequestContextPath() + "/faces/Citas.xhtml");
+////            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CitasCreated"));
+////            return prepareCreate();
+//            } catch (Exception e) {
+//                fc.addMessage("", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ha ocurrido un error el agendar la cita, consulte con su administrador.", null));
+////            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+////            return null;
+//            }
+//        }
+//    }
     public String prepareEdit() {
         current = (Citas) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -269,13 +308,17 @@ public class CitasController implements Serializable {
         for (String ocupada : ocupadas) {
             horasDisponibles.remove(ocupada);
         }
-        System.out.println("XD");
+//        System.out.println("XD");
     }
 
     public void onDateSelect(SelectEvent event) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         mostrarDisponibles();
+    }
+    
+    public void horasDisponibles(){
+        
     }
 
     public List<String> getHorasDisponibles() {
@@ -317,7 +360,6 @@ public class CitasController implements Serializable {
 //        }
 //        return "Nombre";
 //    }
-
     public List<Citas> getCitasCliente() {
         return citasCliente;
     }

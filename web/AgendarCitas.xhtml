@@ -22,16 +22,6 @@
         <script name="jquery/jquery.js" library="primefaces"></script>
     </h:head>
     <h:body>
-        <script>
-            $(document).ready(function () {
-                $("#tableCli table tbody tr").click(function () {
-                    var valor = $(this).find("td").eq(0).html();
-                    console.log(valor);
-//                    $("#valHora").val(valor);
-                    $("#tableCli div.row div.col-md-4 input.input-perfil").val(valor);
-                });
-            });
-        </script>
         <div class="fondo">
         </div>
 
@@ -47,7 +37,7 @@
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item" style="margin-left: 10px; margin-right: 10px;">
                                     <h:form>
-                                        <h:commandButton action="Perfil" class="btn btn-outline-light" value="Regresar"></h:commandButton>
+                                        <h:commandButton action="Citas" class="btn btn-outline-light" value="Regresar"></h:commandButton>
                                     </h:form>
                                 </li>
                             </ul>
@@ -113,6 +103,19 @@
                                 </p:calendar>
                             </div>
                         </div>
+<!--                        <br/>
+                        <div class="row">
+                            <div class=" offset-md-2 col-md-8">
+                                <h:commandButton action="#{citasController.horasDisponibles()}"
+                                                 value="Fijar Fecha" 
+                                                 class="btn btn-block btn-outline-primary" 
+                                                 >
+                                    <p:ajax event="click" 
+                                            listener="{citasController.onDateSelect}" 
+                                            update="tablaCli" />
+                                </h:commandButton>
+                            </div>
+                        </div>-->
                         <br/>
                         <div class="row">
                             <div class="col-md-12" style="text-align: left;">
@@ -151,6 +154,16 @@
                                                 </h:commandButton>-->
                     </div>   
                     <div class="col-md-4" id="tableCli">
+                        <!--                        <script>
+                                                    $(document).ready(function () {
+                                                        $("#tableCli table tbody tr").click(function () {
+                                                            var valor = $(this).find("td").eq(0).html();
+                                                            console.log(valor);
+                        //                    $("#valHora").val(valor);
+                                                            $("#tableCli div.row div.col-md-4 input.input-perfil").val(valor);
+                                                        });
+                                                    });
+                                                </script>-->
                         <h:dataTable value="#{citasController.horasDisponibles}" var="hrs" id="tablaCli">
                             <!--<f:facet name="caption">Horas Disponibles</f:facet>-->
                             <h:column><f:facet name="header">Horas disponibles</f:facet>#{hrs}</h:column> 

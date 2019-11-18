@@ -106,12 +106,58 @@ a:link:hover, a:visited:hover  {
     margin: 20px 30px;
 }
 
+.panel-editar{
+    width: 800px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,15%);
+    background: rgba(0,0,0,0.8);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.5);
+    border-radius: 5px;
+    padding: 20px 20px;
+}
+
+.panel-editar h6 {
+    color: white;
+}
+
+.panel-editar h2 {
+    color: white;
+    text-align: left;
+    margin: 20px 30px;
+}
+
+.panel-agendar{
+    width: 900px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,10%);
+    background: rgba(0,0,0,0.8);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.5);
+    border-radius: 5px;
+    padding: 20px 40px;
+}
+
+.panel-agendar h6 {
+    color: white;
+}
+
+.panel-agendar h2 {
+    color: white;
+    text-align: left;
+    margin: 20px 30px;
+}
+
 .panel-login {
     width: 350px;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, 40%);
+    transform: translate(-50%, 25%);
     background: rgba(0,0,0,0.8);
     box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0,0,0,.5);
@@ -164,6 +210,24 @@ a:link:hover, a:visited:hover  {
 }
 
 .panel-registro label strong {
+    color:white;
+}
+
+.panel-editar label input {
+    display: block;
+    margin: 5px 5px;
+}
+
+.panel-editar label strong {
+    color:white;
+}
+
+.panel-agendar label input {
+    display: block;
+    margin: 5px 5px;
+}
+
+.panel-agendar label strong {
     color:white;
 }
 
@@ -312,4 +376,123 @@ tr:hover td:empty {
 #tablaCon tr:hover:not(#firstrow) { 
     transform: scale(1.05); 
     box-shadow: 0px 3px 7px rgba(0,0,0, 0.5);
+}
+
+.error {
+    border: none;
+    border-radius: 2px;
+    background: rgba(242,222,222, .8);
+    color: rgb(169,68,68);
+    height: 30px;
+    width: 100%;
+    font-size: 13px;
+    padding-left: 10px;
+    text-align: center;
+    padding-top: 5px;
+}
+
+.info {
+    border: none;
+    border-radius: 2px;
+    background: rgba(223,240,216, .8);
+    color: rgb(60,118,60);
+    height: 30px;
+    width: 100%;
+    font-size: 13px;
+    padding-left: 10px;
+    text-align: center;
+    padding-top: 5px;
+}
+
+.warning {
+    border: none;
+    border-radius: 2px;
+    background: rgba(252,248,227, .8);
+    color: rgb(138,109,60);
+    height: 30px;
+    width: 100%;
+    font-size: 13px;
+    padding-left: 10px;
+    text-align: center;
+    padding-top: 5px;
+}
+
+.normalM {
+    border: none;
+    border-radius: 3px;
+    background: none;
+    color: rgba(0,0,0,0);
+    height: 0;
+    width: 0;
+}
+
+#msjContactar ul,
+#msjEditar ul{
+    list-style: none;
+}
+
+tr > td > ul {
+    padding-left: 0px;
+    list-style: none;
+}
+
+#btn-editar input.btn-outline-light:hover {
+    /*    color: #212529;*/
+    color: #fff !important;
+    background-color: #ffc107 !important;
+    border-color: #ffc107 !important;
+}
+
+#btn-login input.btn-outline-light:hover {
+    color: #fff !important;
+    background-color: #007bff !important;
+    border-color: #007bff !important;
+}
+
+#btn-registrar input.btn-outline-light:hover,
+#btn-guardar input.btn-outline-light:hover,
+#btn-agendar input.btn-outline-light:hover {
+    color: #fff !important;
+    background-color: #28a745 !important;
+    border-color: #28a745 !important;
+}
+
+#btn-contacto input.btn-outline-light:hover {
+    color: #fff !important;
+    background-color: #17a2b8 !important;
+    border-color: #17a2b8 !important;
+}
+
+#tableCli table th,
+#tableCli table td,
+#tableCli table {
+    border: 1px white solid;
+    padding: 0px 20px;
+    /*background: rgba(50,50,50,.4);*/
+    margin: auto auto;
+    text-align: center;
+}
+
+#tableCli table th {
+    background: rgba(100,100,100,0.4);
+    color: white;
+}
+
+#tableCli table tbody td {
+    color: black;
+    background: rgba(200,200,200,1);
+}
+
+#tableCli table tbody td:nth-child(even) {
+    background: rgba(200,200,200,.5) !important;
+    color: black !important;
+}
+
+#tableCli table tbody td:hover {
+    cursor: default;
+    background: white;
+}
+
+.select-form {
+    width: 90% !important;   
 }
