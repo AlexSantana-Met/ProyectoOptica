@@ -284,7 +284,7 @@ public class ClientesController implements Serializable {
         try {
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
             Clientes c = (Clientes) session.getAttribute("cliente");
-            ec.redirect(ec.getRequestContextPath() + "/faces/Perfil.xhtml");
+            ec.redirect(ec.getRequestContextPath() + "/faces/Citas.xhtml");
             return "EXITO";
         } catch (IOException ex) {
             return "ERROR";
@@ -323,15 +323,30 @@ public class ClientesController implements Serializable {
     }
 
     public void mostrarCitasCliente() {
-        citasCliente = new ArrayList<>();
-        String correo = current.getCorreo();
-        current = null;
-        current = new Clientes();
-        Clientes cliente = getFacade().getCurrentUser(correo);
-        current = cliente;
-        Collection<Citas> prb = getFacade().getCitasCliente(current.getCorreo());
-        for (Citas citas : prb) {
-            citasCliente.add(citas);
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        HttpSession session = (HttpSession) ec.getSession(false);
+        if (session.getAttribute("cliente") == null) {
+            try {
+                current = new Clientes();
+                ec.redirect(ec.getRequestContextPath() + "/faces/Login.xhtml");
+            } catch (IOException ex) {
+
+            }
+        } else {
+            Clientes cliente2 = getFacade().find(current.getIdClientePk());
+            recreateModel();
+            citasCliente = null;
+            citasCliente = new ArrayList<>();
+            String correo = current.getCorreo();
+            current = null;
+            current = new Clientes();
+            Clientes cliente = getFacade().getCurrentUser(correo);
+            current = cliente;
+            Collection<Citas> prb = getFacade().getCitasCliente(current.getCorreo());
+            for (Citas citas : prb) {
+                citasCliente.add(citas);
+            }
         }
 //        System.out.println(current.getApellidoMaterno());
     }

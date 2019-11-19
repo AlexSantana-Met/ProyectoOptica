@@ -22,4 +22,8 @@ $(document).ready(function () {
 //                    $("#valHora").val(valor);
         $("#tableCli div.row div.col-md-4 input.input-perfil").val(valor);
     });
+//    if ($("#div-citas") !== null) {
+//        document.getElementById('div-citas').scrollIntoView();
+//    }
+//    $("#div-citas").scroll();
 });

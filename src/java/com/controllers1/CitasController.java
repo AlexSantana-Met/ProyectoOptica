@@ -111,6 +111,7 @@ public class CitasController implements Serializable {
                 Clientes cli = (Clientes) session.getAttribute("cliente");
                 current.setStatus(new BigInteger("1"));
                 current.setIdCitaPk(BigDecimal.valueOf(getFacade().count() + 1));
+//                current.setIdCitaPk(BigDecimal.valueOf(getFacade().findAll());
                 current.setIdClienteFk(cli);
                 current.setFechaCita(dateCita);
                 current.setIdEmpleadoFk(getFacade().getEmpleado(BigDecimal.valueOf(1)));
@@ -124,6 +125,7 @@ public class CitasController implements Serializable {
                 dateCita = null;
                 hourDate = "";
                 fc.addMessage("", new FacesMessage(FacesMessage.SEVERITY_INFO, "Se ha agendado la cita correctamente.", null));
+                FacesContext.getCurrentInstance().getViewRoot().getViewMap().remove("citasController");
                 ec.redirect(ec.getRequestContextPath() + "/faces/Citas.xhtml");
 //            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CitasCreated"));
 //            return prepareCreate();
@@ -316,9 +318,9 @@ public class CitasController implements Serializable {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         mostrarDisponibles();
     }
-    
-    public void horasDisponibles(){
-        
+
+    public void horasDisponibles() {
+
     }
 
     public List<String> getHorasDisponibles() {
@@ -360,6 +362,29 @@ public class CitasController implements Serializable {
 //        }
 //        return "Nombre";
 //    }
+    public void mostrarTodasCitas() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ExternalContext ec = fc.getExternalContext();
+        HttpSession session = (HttpSession) ec.getSession(false);
+//        citasCliente = new ArrayList<>();
+        if (session.getAttribute("cliente") == null) {
+            try {
+                current = new Citas();
+                ec.redirect(ec.getRequestContextPath() + "/faces/Login.xhtml");
+            } catch (IOException ex) {
+            }
+        } else {
+            BigDecimal id = ((Clientes) session.getAttribute("cliente")).getIdClientePk();
+            List<Citas> citas = getFacade().findAll();
+            citasCliente = new ArrayList<>();
+            for (Citas cita : citas) {
+                if(cita.getIdClienteFk().getIdClientePk() == id) {
+                    citasCliente.add(cita);
+                }
+            }
+        }
+    }
+
     public List<Citas> getCitasCliente() {
         return citasCliente;
     }

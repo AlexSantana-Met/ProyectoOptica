@@ -10,57 +10,26 @@
     <h:body>
         <ui:composition template="templates/main-logged.xhtml">
             <ui:define name="content">
-                <div align="center" class="panel-citas">
+                <div align="center" class="panel-citas" id="div-citas">
+                    <script>
+                        $(document).ready(function () {
+                            document.getElementById('div-citas').scrollIntoView();
+                        });
+                    </script>
+<!--                    <div style="display: none !important;">
+                        <h:form>
+                            <h:inputText value="{clientesController.mostrarCitasCliente()}"></h:inputText>
+                        </h:form>
+                        <h:inputText value="{citasController.mostrarCitasClientes()}"></h:inputText>
+                    </div>-->
                     <div style="display: none !important;">
                         <h:form>
-                            <h:inputText value="#{clientesController.mostrarCitasCliente()}"></h:inputText>
+                            <h:inputText value="#{citasController.mostrarTodasCitas()}"></h:inputText>
                         </h:form>
                         <!--<h:inputText value="{citasController.mostrarCitasClientes()}"></h:inputText>-->
                     </div>
                     <h3 class="caption">Historial de Citas</h3>
-
-                    <!--                    <table id="tablaCon" class="table">
-                                            <thead id="firstrow">
-                                                <tr>
-                                                    <th>Fecha</th>
-                                                    <th>Hora</th>
-                                                    <th>Descripción</th>
-                                                    <th>Estado</th>
-                                                    <th>Respuesta</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="table-striped">
-                                                <tr>
-                                                    <td>14/06/2019</td>
-                                                    <td>09:00</td>
-                                                    <td>Consulta</td>
-                                                    <td>Atendida</td>
-                                                    <td>Respuestas</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>14/06/2019</td>
-                                                    <td>09:00</td>
-                                                    <td>Consulta</td>
-                                                    <td>Atendida</td>
-                                                    <td>Respuestas</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>14/06/2019</td>
-                                                    <td>09:00</td>
-                                                    <td>Consulta</td>
-                                                    <td>Atendida</td>
-                                                    <td>Respuestas</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>14/06/2019</td>
-                                                    <td>09:00</td>
-                                                    <td>Consulta</td>
-                                                    <td>Atendida</td>
-                                                    <td>Respuestas</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>-->
-                    <h:dataTable id="tablaCon" value="#{clientesController.citasCliente}" var="cons" captionClass="caption">
+                    <h:dataTable id="tablaCon" value="#{citasController.citasCliente}" var="cons" captionClass="caption">
                         <!--<h:dataTable id="tablaCon" captionClass="caption">-->
                         <h:column >
                             <f:facet name="header">Fecha</f:facet>

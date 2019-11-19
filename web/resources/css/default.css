@@ -301,7 +301,7 @@ footer h3 {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, 50%);
+    transform: translate(-50%, 30%);
     background: rgba(0,0,0,0.8);
     box-sizing: border-box;
     background-color: rgba(171,171,171,.5);
