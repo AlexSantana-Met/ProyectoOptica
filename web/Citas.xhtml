@@ -29,7 +29,7 @@
                         <!--<h:inputText value="{citasController.mostrarCitasClientes()}"></h:inputText>-->
                     </div>
                     <h3 class="caption">Historial de Citas</h3>
-                    <h:dataTable id="tablaCon" value="#{citasController.citasCliente}" var="cons" captionClass="caption">
+                    <h:dataTable id="tablaCon" value="#{citasController.citasCliente}" var="cons" captionClass="caption" rendered="#{not empty citasController.citasCliente}">
                         <!--<h:dataTable id="tablaCon" captionClass="caption">-->
                         <h:column >
                             <f:facet name="header">Fecha</f:facet>
@@ -56,6 +56,8 @@
                                 #{cons.respuestaCita}
                         </h:column>
                     </h:dataTable>
+                    <h:outputText value="No existe un historial de citas." rendered="#{empty citasController.citasCliente}"/>
+                    <br/>
                     <br/>
                     <div class="row">
                         <div class="col-md-4 offset-4">

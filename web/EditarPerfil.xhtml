@@ -53,11 +53,13 @@
                 </nav>
             </ui:insert>
         </div>
+        <div style="display: none !important;">
+            <h:form>
+                <h:inputText value="#{clientesController.nombreCompleto}"></h:inputText>
+            </h:form>
+        </div>
         <div id="content" class="center_content">
-            <h:form class="panel-editar" style="text-align: left;">
-                <!--                <div style="display: none !important;">
-                                    <h:inputText value="{clientesController.nombreCompleto}"></h:inputText>
-                                </div>-->
+            <h:form class="panel-editar" style="text-align: left;" enctype="multipart/form-data">
                 <h3 style="color: white; text-align: center">INFORMACIÓN PERSONAL</h3>
                 <br/>
                 <div class="row ">
@@ -124,7 +126,7 @@
                     <div class="col-md-2 offset-md-1">
                         <label class="lbl-perfil"><strong>Fecha de Nacimiento: </strong></label>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <p:calendar id="popup" 
                                     value="#{clientesController.selected.fechaNacimiento}" 
                                     class="input-perfil" 
@@ -140,6 +142,15 @@
                                                              >
                                                     <f:convertDateTime pattern="dd/MM/yyyy" />
                                                 </h:inputText>-->
+                    </div>
+                </div>
+                <br/>
+                <div class="row" style="">
+                    <div class="col-md-2 offset-md-1">
+                        <label class="lbl-perfil"><strong>Foto de Perfil: </strong></label>
+                    </div>
+                    <div class="col-md-7" style="background: rgba(255,255,255,1); margin-left: 10px; padding: 10px 10px; border-radius: 5px;">
+                        <p:fileUpload value="#{clientesController.file}" mode="simple" multiple="false" allowTypes="/(\.|\/)(gif|jpeg|png|jpg)$/1"/>
                     </div>
                 </div>
                 <br/>
@@ -181,7 +192,7 @@
                 <br/>
                 <div class="row">
                     <div class="col-md-4 offset-md-4" id="btn-guardar">
-                        <h:commandButton class="btn btn-outline-light btn-block" value="Guardar datos" action="#{clientesController.update()}"></h:commandButton>
+                        <h:commandButton class="btn btn-outline-light btn-block" value="Guardar datos" action="#{clientesController.NuevoDocumento()}"></h:commandButton>
                     </div>
                 </div>
                 <br/>

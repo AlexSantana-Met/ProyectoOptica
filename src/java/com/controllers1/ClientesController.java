@@ -5,7 +5,11 @@ import com.beans.Clientes;
 import com.controllers1.util.JsfUtil;
 import com.controllers1.util.PaginationHelper;
 import com.facades.ClientesFacade;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -28,8 +32,10 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.model.UploadedFile;
 
 @Named("clientesController")
 @SessionScoped
@@ -39,6 +45,9 @@ public class ClientesController implements Serializable {
     private DataModel items = null;
     private List<Citas> citasCliente;
     private Date birthday;
+    private UploadedFile file;
+    private String ruta;
+    private String nombreArchivo = "";
     @EJB
     private com.facades.ClientesFacade ejbFacade;
     private PaginationHelper pagination;
@@ -56,6 +65,7 @@ public class ClientesController implements Serializable {
             current.setFechaNacimiento(cl.getFechaNacimiento());
             current.setTelefono(cl.getTelefono());
             current.setIdClientePk(cl.getIdClientePk());
+            current.setNivelUsuario(cl.getNivelUsuario());
         }
     }
 
@@ -110,22 +120,16 @@ public class ClientesController implements Serializable {
         FacesContext fc = FacesContext.getCurrentInstance();
         try {
             current.setStatus(new BigInteger("1"));
+            current.setNivelUsuario(new BigInteger("1"));
             current.setIdClientePk(BigDecimal.valueOf(getFacade().count() + 1));
-//            current.setDireccion("");
-//            current.setFechaNacimiento(new Date());
-//            current.setTelefono(BigInteger.valueOf(0));
+            current.setImagen("no-user-image.png");
             getFacade().create(current);
             fc.addMessage("", new FacesMessage(FacesMessage.SEVERITY_INFO, "Se ha registrado correctamente.", null));
-//            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ClientesCreated"));
-//            return prepareCreate();
-//            System.out.println("Nuevo cliente");
             current = new Clientes();
             selectedItemIndex = -1;
         } catch (Exception e) {
             System.out.println("Error: " + e);
             fc.addMessage("", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error en registro, contactese con el administrador.", null));
-//            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-//            return null;
         }
     }
 
@@ -148,9 +152,15 @@ public class ClientesController implements Serializable {
             }
         }
         try {
+            if (current.getImagen().isEmpty()) {
+                current.setImagen("no-user-image.png");
+            }
             getFacade().edit(current);
             fc.addMessage("", new FacesMessage(FacesMessage.SEVERITY_INFO, "Los datos se han guardado correctamente.", null));
             session.setAttribute("cliente", current);
+            ruta = "";
+            nombreArchivo = "";
+            file = null;
 //            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ClientesUpdated"));
 //            return "View";
         } catch (Exception e) {
@@ -370,6 +380,84 @@ public class ClientesController implements Serializable {
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
+
+    public void NuevoDocumento() {
+        if (!file.getFileName().isEmpty()) {
+            if (SubirArchivo()) {
+                current.setImagen(nombreArchivo);
+                ruta = "";
+            }
+        }
+        update();
+    }
+
+    public Boolean SubirArchivo() {
+        try {
+            ruta = "web/resources/images";
+            if (current.getImagen().equals("no-user-image.png")) {
+                nombreArchivo = String.valueOf(getFacade().count() + 1) + current.getApellidoPaterno() + random() + "."
+                        + getFile().getContentType().substring(getFile().getContentType().indexOf("/") + 1);
+            } else {
+                nombreArchivo = current.getImagen();
+            }
+            copiar_archivo(nombreArchivo, getFile().getInputstream());
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public String random() {
+        String cadena = "";
+        while (cadena.length() < 5) {
+            cadena = cadena.concat(String.valueOf((int) (Math.random() * 10)));
+        }
+        return cadena;
+    }
+
+    public void copiar_archivo(String nombre_archivo, InputStream in) {
+        try {
+            ruta = ruta + "/" + nombre_archivo;
+            String ruta2 = getPath();
+            System.out.println(ruta2.length() + ", " + ruta2.indexOf("\\build\\web\\"));
+            ruta2 = ruta2.substring(0, ruta2.indexOf("build\\web\\"));
+            File ar = new File(ruta2 + ruta);
+            if (ar.exists()) {
+                ar.delete();
+            }
+            ar = null;
+            OutputStream out = new FileOutputStream(new File(ruta2 + ruta));
+            int read = 0;
+            byte[] bytes = new byte[1024];
+            while ((read = in.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+            in.close();
+//            out.write(contenido);
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("Error al subir el archivo"));
+        }
+    }
+
+    public static String getPath() {
+        try {
+            ServletContext ctx = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+            return ctx.getRealPath("/");
+        } catch (Exception e) {
+            System.out.println("Error al obtener la ruta");
+            return null;
+        }
     }
 
     @FacesConverter(forClass = Clientes.class)

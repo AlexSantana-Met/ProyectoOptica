@@ -40,7 +40,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Empleados.findByApellidoMaterno", query = "SELECT e FROM Empleados e WHERE e.apellidoMaterno = :apellidoMaterno")
     , @NamedQuery(name = "Empleados.findByCorreo", query = "SELECT e FROM Empleados e WHERE e.correo = :correo")
     , @NamedQuery(name = "Empleados.findByTelefono", query = "SELECT e FROM Empleados e WHERE e.telefono = :telefono")
-    , @NamedQuery(name = "Empleados.findByStatus", query = "SELECT e FROM Empleados e WHERE e.status = :status")})
+    , @NamedQuery(name = "Empleados.findByStatus", query = "SELECT e FROM Empleados e WHERE e.status = :status")
+    , @NamedQuery(name = "Empleados.findByNivelUsuario", query = "SELECT e FROM Empleados e WHERE e.nivelUsuario = :nivelUsuario")})
 public class Empleados implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -74,6 +75,8 @@ public class Empleados implements Serializable {
     @NotNull
     @Column(name = "STATUS")
     private BigInteger status;
+    @Column(name = "NIVEL_USUARIO")
+    private BigInteger nivelUsuario;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEmpleadoFk")
     private Collection<Citas> citasCollection;
     @JoinColumn(name = "ID_PUESTO_FK", referencedColumnName = "ID_PUESTO_PK")
@@ -151,6 +154,14 @@ public class Empleados implements Serializable {
         this.status = status;
     }
 
+    public BigInteger getNivelUsuario() {
+        return nivelUsuario;
+    }
+
+    public void setNivelUsuario(BigInteger nivelUsuario) {
+        this.nivelUsuario = nivelUsuario;
+    }
+
     @XmlTransient
     public Collection<Citas> getCitasCollection() {
         return citasCollection;
@@ -190,7 +201,7 @@ public class Empleados implements Serializable {
 
     @Override
     public String toString() {
-        return "com.beans.Empleados[ idEmpleadoPk=" + idEmpleadoPk + " ]";
+        return nombre + " " + apellidoPaterno + " " + apellidoMaterno;
     }
-    
+
 }

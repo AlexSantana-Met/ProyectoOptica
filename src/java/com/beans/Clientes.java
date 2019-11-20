@@ -44,7 +44,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Clientes.findByFechaNacimiento", query = "SELECT c FROM Clientes c WHERE c.fechaNacimiento = :fechaNacimiento")
     , @NamedQuery(name = "Clientes.findByDireccion", query = "SELECT c FROM Clientes c WHERE c.direccion = :direccion")
     , @NamedQuery(name = "Clientes.findByTelefono", query = "SELECT c FROM Clientes c WHERE c.telefono = :telefono")
-    , @NamedQuery(name = "Clientes.findByStatus", query = "SELECT c FROM Clientes c WHERE c.status = :status")})
+    , @NamedQuery(name = "Clientes.findByStatus", query = "SELECT c FROM Clientes c WHERE c.status = :status")
+    , @NamedQuery(name = "Clientes.findByImagen", query = "SELECT c FROM Clientes c WHERE c.imagen = :imagen")
+    , @NamedQuery(name = "Clientes.findByNivelUsuario", query = "SELECT c FROM Clientes c WHERE c.nivelUsuario = :nivelUsuario")})
 public class Clientes implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -91,6 +93,10 @@ public class Clientes implements Serializable {
     @NotNull
     @Column(name = "STATUS")
     private BigInteger status;
+    @Column(name = "IMAGEN")
+    private String imagen;
+    @Column(name = "NIVEL_USUARIO")
+    private BigInteger nivelUsuario;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idClienteFk")
     private Collection<Citas> citasCollection;
 
@@ -192,6 +198,22 @@ public class Clientes implements Serializable {
         this.status = status;
     }
 
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public BigInteger getNivelUsuario() {
+        return nivelUsuario;
+    }
+
+    public void setNivelUsuario(BigInteger nivelUsuario) {
+        this.nivelUsuario = nivelUsuario;
+    }
+
     @XmlTransient
     public Collection<Citas> getCitasCollection() {
         return citasCollection;
@@ -200,6 +222,7 @@ public class Clientes implements Serializable {
     public void setCitasCollection(Collection<Citas> citasCollection) {
         this.citasCollection = citasCollection;
     }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -222,7 +245,7 @@ public class Clientes implements Serializable {
 
     @Override
     public String toString() {
-        return "com.beans.Clientes[ idClientePk=" + idClientePk + " ]";
+        return correo;
 //        return "\n\nnombre: " + this.nombre + "\n"
 //                + "app: " + this.apellidoPaterno + "\n"
 //                + "app: " + this.apellidoMaterno + "\n"

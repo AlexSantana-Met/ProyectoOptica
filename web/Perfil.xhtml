@@ -14,44 +14,52 @@
                     <h:form class="panel-registro" style="text-align: left;">
                         <h3 style="color: white; text-align: center">INFORMACIÓN PERSONAL</h3>
                         <br/>
-                        <div class="row ">
-                            <div class="col-md-2 offset-md-1">
-                                <label class="lbl-perfil"><strong>NOMBRE: </strong></label>
+                        <div class="row">
+                            <div class="col-md-3 offset-md-1">
+                                <h:graphicImage alt="Imagen Usuario" library="images" name="#{clientesController.selected.imagen}" style="width: 100%; padding-left: auto; padding-right: auto;"></h:graphicImage>
                             </div>
                             <div class="col-md-8">
-                                <h:inputText id="nom"
-                                             readonly="true"
-                                             class="input-perfil"
-                                             value="#{clientesController.nombreCompleto}"
-                                             />
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-md-2 offset-md-1">
-                                <label class="lbl-perfil"><strong>Dirección: </strong></label>
-                            </div>
-                            <div class="col-md-8">
-                                <h:inputText class="input-perfil" 
-                                             id="direccion" 
-                                             readonly="true" 
-                                             value="#{clientesController.selected.direccion}"
-                                             > </h:inputText>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-md-2 offset-md-1">
-                                <label class="lbl-perfil"><strong>Fecha de Nacimiento: </strong></label>
-                            </div>
-                            <div class="col-md-4">
-                                <h:inputText class="input-perfil" 
-                                             id="born" 
-                                             readonly="true"
-                                             value="#{clientesController.selected.fechaNacimiento}"
-                                             >
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />
-                                </h:inputText>
+                                <div class="row ">
+                                    <div class="col-md-2 ">
+                                        <label class="lbl-perfil"><strong>NOMBRE: </strong></label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <h:inputText id="nom"
+                                                     readonly="true"
+                                                     class="input-perfil"
+                                                     value="#{clientesController.nombreCompleto}"/>
+                                        <!--value="{clientesController.nombreCompleto}"-->
+
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label class="lbl-perfil"><strong>Dirección: </strong></label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <h:inputText class="input-perfil" 
+                                                     id="direccion" 
+                                                     readonly="true" 
+                                                     value="#{clientesController.selected.direccion}"
+                                                     > </h:inputText>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label class="lbl-perfil"><strong>Fecha de Nacimiento: </strong></label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h:inputText class="input-perfil" 
+                                                     id="born" 
+                                                     readonly="true"
+                                                     value="#{clientesController.selected.fechaNacimiento}"
+                                                     >
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        </h:inputText>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <br/>
