@@ -1,22 +1,28 @@
 package com.controllers1;
 
+import com.beans.Clientes;
 import com.beans.Empleados;
 import com.controllers1.util.JsfUtil;
 import com.controllers1.util.PaginationHelper;
 import com.facades.EmpleadosFacade;
+import java.io.IOException;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpSession;
 
 @Named("empleadosController")
 @SessionScoped
@@ -24,6 +30,7 @@ public class EmpleadosController implements Serializable {
 
     private Empleados current;
     private DataModel items = null;
+    private String pass;
     @EJB
     private com.facades.EmpleadosFacade ejbFacade;
     private PaginationHelper pagination;
@@ -190,6 +197,99 @@ public class EmpleadosController implements Serializable {
 
     public Empleados getEmpleados(java.math.BigDecimal id) {
         return ejbFacade.find(id);
+    }
+
+    public String nombreEmpleado(java.math.BigDecimal id) {
+        Empleados em = getEmpleados(id);
+        return em.getNombre() + " " + em.getApellidoPaterno() + " " + em.getApellidoMaterno();
+    }
+
+    public String statusEmpleado(java.math.BigInteger status) {
+        return status.intValue() == 1 ? "Activo" : "Inactivo";
+    }
+
+    public SelectItem[] getEstadoEmpleado() {
+        SelectItem[] tipos = {
+            new SelectItem(new BigDecimal(1), "Activo"),
+            new SelectItem(new BigDecimal(0), "Inactivo")
+        };
+        return tipos;
+    }
+
+    public void login() {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        FacesContext fc = FacesContext.getCurrentInstance();
+        if (getFacade().validaLogin(current.getCorreo(), pass)) {
+            HttpSession session = (HttpSession) ec.getSession(false);
+            Empleados empleado = new Empleados();
+            empleado.setCorreo(current.getCorreo());
+            current = new Empleados();
+            session.setAttribute("admin", empleado);
+            String result = muestraAdminPanel();
+            switch (result) {
+                case "ERROR":
+                    fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error en inicio de sesión.", null));
+                    break;
+                case "EXITO":
+                    fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Inicio de sesión correcto", null));
+                    break;
+            }
+        } else {
+            fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Contraseña o correo incorrectos.", null));
+        }
+    }
+
+    public String muestraAdminPanel() {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+            ec.redirect(ec.getRequestContextPath() + "/faces/pages/citas/List.xhtml");
+            return "EXITO";
+        } catch (IOException ex) {
+            return "ERROR";
+        }
+    }
+
+    public void logout() {
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        session.removeAttribute("admin");
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(ec.getRequestContextPath() + "/faces/index-admin.xhtml");
+        } catch (IOException ex) {
+
+        }
+    }
+
+    public String getPass() {
+        return this.pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
+    public String getVerificaSesion() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        HttpSession session = (HttpSession) ec.getSession(false);
+        if (session.getAttribute("admin") == null) {
+            try {
+                ec.redirect(ec.getRequestContextPath() + "/faces/index-admin.xhtml");
+            } catch (IOException ex) {
+
+            }
+            return "";
+        } else {
+            try {
+                if (session.getAttribute("cliente") != null) {
+                    ec.redirect(ec.getRequestContextPath() + "/faces/index-admin.xhtml");
+                }
+            } catch (IOException ex) {
+
+            }
+            return "admin";
+        }
     }
 
     @FacesConverter(forClass = Empleados.class)

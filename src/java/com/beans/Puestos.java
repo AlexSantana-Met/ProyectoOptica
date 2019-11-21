@@ -154,7 +154,7 @@ public class Puestos implements Serializable {
 
     @Override
     public String toString() {
-        return "com.beans.Puestos[ idPuestoPk=" + idPuestoPk + " ]";
+        return nombrePuesto;
     }
     
 }

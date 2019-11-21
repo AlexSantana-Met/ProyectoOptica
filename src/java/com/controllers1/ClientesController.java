@@ -254,17 +254,7 @@ public class ClientesController implements Serializable {
     public Clientes getClientes(java.math.BigDecimal id) {
         return ejbFacade.find(id);
     }
-
-//    public void limpiar() {
-//        FacesContext fc = FacesContext.getCurrentInstance();
-//        current = new Clientes();
-//        current.setApellidoMaterno("");
-//        current.setApellidoPaterno("");
-//        current.setNombre("");
-//        current.setPass("");
-//        current.setCorreo("");
-//        fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "", null));
-//    }
+    
     public void login() {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         FacesContext fc = FacesContext.getCurrentInstance();
@@ -457,6 +447,38 @@ public class ClientesController implements Serializable {
         } catch (Exception e) {
             System.out.println("Error al obtener la ruta");
             return null;
+        }
+    }
+
+    public String nombrePaciente(java.math.BigDecimal id) {
+        Clientes em = getClientes(id);
+        return em.getNombre() + " " + em.getApellidoPaterno() + " " + em.getApellidoMaterno();
+    }
+
+    public String statusCliente(java.math.BigInteger status) {
+        return status.intValue() == 1 ? "Activo" : "Inactivo";
+    }
+
+    public String getVerificaSesion() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        HttpSession session = (HttpSession) ec.getSession(false);
+        if (session.getAttribute("admin") == null) {
+            try {
+                ec.redirect(ec.getRequestContextPath() + "/faces/index-admin.xhtml");
+            } catch (IOException ex) {
+
+            }
+            return "";
+        } else {
+            try {
+                if (session.getAttribute("cliente") != null) {
+                    ec.redirect(ec.getRequestContextPath() + "/faces/index-admin.xhtml");
+                }
+            } catch (IOException ex) {
+
+            }
+            return "admin";
         }
     }
 

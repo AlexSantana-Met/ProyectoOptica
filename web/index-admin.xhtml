@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"></link>
+        <!--<h:outputStylesheet library="css" name="font-awesome.min.css"/>-->
+        <!--<h:outputStylesheet library="css" name="font-awesome.css"/>-->
+
+        <title>Óptica - Administrador</title>
+
+        <h:outputScript library="js" name="jquery.slim.min.js"/>
+        <h:outputScript library="js" name="bootstrap.bundle.min.js"/>
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+    </h:head>
+    <h:body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="#">Administrador Óptica</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </nav>
+        <br/>
+        <br/>
+        <div align="center">
+            <div style="border: 1px rgba(200,200,200,.8) solid; border-radius: 5px; padding: 20px 35%;">
+                <h:form>
+                    <div class="card" style="padding-left: 10px; padding-right: 10px;">
+                        <div class="card-title" style="text-align: center; margin-top: 30px;">
+                            <h3>Iniciar Sesión</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class='row'>
+                                <div class='col-md-10 offset-1' style="text-align: left;">
+                                    <strong><label>Correo:</label></strong>
+                                </div>
+                            </div>
+                            <div class='row'>
+                                <div class='col-md-10 offset-1'>
+                                    <h:inputText id="userL" 
+                                                 label="Correo" 
+                                                 validatorMessage="Usuario requerido" 
+                                                 p:placeholder="Correo"
+                                                 class="form-control"
+                                                 autocomplete="off"
+                                                 required="true"
+                                                 value="#{empleadosController.selected.correo}"
+                                                 />
+                                </div>
+                            </div>
+                            <br/>
+                            <div class='row'>
+                                <div class='col-md-10 offset-1' style="text-align: left;">
+                                    <strong><label>Contraseña: </label></strong>
+                                </div>
+                            </div>
+                            <div class='row'>
+                                <div class='col-md-10 offset-1'>
+                                    <h:inputSecret id="passL" 
+                                                   label="Contraseña" 
+                                                   validatorMessage="Contraseña requerido" 
+                                                   p:placeholder="Contraseña"
+                                                   required="true"
+                                                   autocomplete="off"
+                                                   class="form-control"
+                                                   value="#{empleadosController.pass}"
+                                                   />
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                            <div id="btn-login">
+                                <h:commandButton value="Ingresar" 
+                                                 class='btn btn-primary btn-block'
+                                                 style="width: 80%; margin: 0px 10%;"
+                                                 action="#{empleadosController.login()}"
+                                                 ></h:commandButton>
+                            </div>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <h:messages infoClass="info" errorClass="error" warnClass="warning" fatalClass="normalM" id="msjLpgin"/>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+    </h:body>
+</html>
+

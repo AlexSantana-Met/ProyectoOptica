@@ -5,7 +5,7 @@ root {
 body {
     font-family: Arial, Helvetica, sans-serif;
     color: #3a4f54;
-    background-color: #dfecf1;
+    background-color: #FFF;
     font-size: small;
 }
 
@@ -13,7 +13,7 @@ a {
     color: #e33b06;
 }
 
-table {
+/*table {
     empty-cells: show;
 }
 
@@ -73,10 +73,36 @@ tr.jsfcrud_odd_row {
 tr.jsfcrud_even_row {
     background-color: #eff5fa;
     color: #4e6a71;
-}
+}*/
 
 #busyImage {
     position: absolute;
     left: 50%;
     top: 50%;
+}
+
+.input-perfil {
+    /*margin: 0px auto;*/
+    padding: 0px 10px;
+    border: none;
+    color: black;
+    border-radius: 3px;
+    height: 35px;
+    width: 100%;
+    /*width: 100%;*/
+    /*display: block;*/
+}
+
+#lista-citas table thead th {
+    color: #fff !important;
+
+    background-color: #343a40 !important;
+
+    border-color: #454d55 !important;
+    text-align: center;
+}
+
+.nav-admin {
+    height: 30px;
+    margin-bottom: 10px;
 }

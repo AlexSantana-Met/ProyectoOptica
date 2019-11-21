@@ -6,68 +6,52 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ListContactoTitle}"></h:outputText>
-        </ui:define>
+
         <ui:define name="body">
-            <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListContactoEmpty}" rendered="#{contactoController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{contactoController.items.rowCount > 0}">
-                    <h:outputText value="#{contactoController.pagination.pageFirstItem + 1}..#{contactoController.pagination.pageLastItem + 1}/#{contactoController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{contactoController.previous}" value="#{bundle.Previous} #{contactoController.pagination.pageSize}" rendered="#{contactoController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{contactoController.next}" value="#{bundle.Next} #{contactoController.pagination.pageSize}" rendered="#{contactoController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{contactoController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListContactoTitle_idContactoPk}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idContactoPk}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListContactoTitle_correo}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.correo}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListContactoTitle_nombre}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nombre}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListContactoTitle_mensaje}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.mensaje}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListContactoTitle_status}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.status}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{contactoController.prepareView}" value="#{bundle.ListContactoViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{contactoController.prepareEdit}" value="#{bundle.ListContactoEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{contactoController.destroy}" value="#{bundle.ListContactoDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
-                <br />
-                <h:commandLink action="#{contactoController.prepareCreate}" value="#{bundle.ListContactoCreateLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ListContactoIndexLink}"/>
-            </h:form>
+            <div class="card" style="padding-left: 30px; padding-right: 30px;">
+                <div class="card-title" style="text-align: center; margin-top: 30px;">
+                    <h3>Mensajes recibidos</h3>
+                </div>    
+                <div class="card-body" id="lista-citas">
+                    <h:form >
+                        <div style="display: none !important;">
+                            <h:inputText value="#{contactoController.verificaSesion}"></h:inputText>
+                        </div>
+                        <h:panelGroup id="messagePanel" layout="block">
+                            <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                        </h:panelGroup>
+                        <h:outputText escape="false" value="No hay mensajes" rendered="#{contactoController.items.rowCount == 0}"/>
+                        <h:panelGroup rendered="#{contactoController.items.rowCount > 0}">
+                            <h:dataTable value="#{contactoController.items}" var="item" class="table" style="text-align: center;">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Correo de remitente"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.correo}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Nombre de remitente"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.nombre}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Mensaje"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.mensaje}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Acciones"/>
+                                    </f:facet>
+                                    <h:commandLink action="#{contactoController.prepareView}" class="fa fa-eye btn btn-sm btn-info"/>
+                                </h:column>
+                            </h:dataTable>
+                        </h:panelGroup>
+                    </h:form>
+                </div>
+            </div>
         </ui:define>
     </ui:composition>
 

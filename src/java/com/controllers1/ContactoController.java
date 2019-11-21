@@ -4,26 +4,25 @@ import com.beans.Contacto;
 import com.controllers1.util.JsfUtil;
 import com.controllers1.util.PaginationHelper;
 import com.facades.ContactoFacade;
+import java.io.IOException;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
+import javax.servlet.http.HttpSession;
 
 @Named("contactoController")
 @SessionScoped
@@ -204,6 +203,29 @@ public class ContactoController implements Serializable {
 
     public Contacto getContacto(java.math.BigDecimal id) {
         return ejbFacade.find(id);
+    }
+
+    public String getVerificaSesion() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        HttpSession session = (HttpSession) ec.getSession(false);
+        if (session.getAttribute("admin") == null) {
+            try {
+                ec.redirect(ec.getRequestContextPath() + "/faces/index-admin.xhtml");
+            } catch (IOException ex) {
+
+            }
+            return "";
+        } else {
+            try {
+                if (session.getAttribute("cliente") != null) {
+                    ec.redirect(ec.getRequestContextPath() + "/faces/index-admin.xhtml");
+                }
+            } catch (IOException ex) {
+
+            }
+            return "admin";
+        }
     }
 
     @FacesConverter(forClass = Contacto.class)

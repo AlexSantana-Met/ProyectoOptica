@@ -6,9 +6,12 @@
 package com.facades;
 
 import com.beans.Empleados;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -28,5 +31,16 @@ public class EmpleadosFacade extends AbstractFacade<Empleados> {
     public EmpleadosFacade() {
         super(Empleados.class);
     }
-    
+
+    public boolean validaLogin(String user, String pass) {
+        List<Empleados> lis = new ArrayList<>();
+        TypedQuery<Empleados> query = em.createQuery("SELECT e FROM Empleados e where e.correo = '" + user + "'", Empleados.class);
+        lis = query.getResultList();
+        if (!lis.isEmpty()) {
+            return pass.equals("admin123");
+        } else {
+            return false;
+        }
+    }
+
 }

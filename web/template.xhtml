@@ -6,17 +6,66 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title><ui:insert name="title">Default Title</ui:insert></title>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"></link>
+        <!--<h:outputStylesheet library="css" name="font-awesome.min.css"/>-->
+        <!--<h:outputStylesheet library="css" name="font-awesome.css"/>-->
+
+        <title>Óptica - Administrador</title>
+
+        <h:outputScript library="js" name="jquery.slim.min.js"/>
+        <h:outputScript library="js" name="bootstrap.bundle.min.js"/>
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
     </h:head>
 
     <h:body>
-        <h1>
-            <ui:insert name="title">Default Title</ui:insert>
-        </h1>
-        <p>
-            <ui:insert name="body">Default Body</ui:insert>
-        </p>
+        <ui:insert name="title">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="#">Óptica</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarResponsive">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <h:link class="nav-link"  outcome="/pages/citas/List" value="Citas"></h:link>
+                                <!--<a class="nav-link" href="/Optica">Inicio</a>-->
+                            </li>
+                            <li class="nav-item">
+                                <h:link class="nav-link" outcome="/pages/empleados/List" value="Empleados"></h:link>
+                                <!--<a class="nav-link" href="/Optica/faces/Login.xhtml">Iniciar Sesión</a>-->
+                            </li>
+                            <li class="nav-item">
+                                <h:link class="nav-link" outcome="/pages/contacto/List" value="Mensajes Recibidos"></h:link>
+                                <!--<a class="nav-link" href="/Optica/faces/Login.xhtml">Iniciar Sesión</a>-->
+                            </li>
+                            <li class="nav-item">
+                                <h:link class="nav-link" outcome="/pages/clientes/List" value="Pacientes"></h:link>
+                                <!--<a class="nav-link" href="/Optica/faces/Login.xhtml">Iniciar Sesión</a>-->
+                            </li>
+                            <li class="nav-item" style="margin-left: 10px; margin-right: 10px;">
+                                <h:form>
+                                    <h:commandButton action="#{empleadosController.logout()}" class="btn btn-outline-light" value="Cerrar sesión">
+                                    </h:commandButton>
+                                </h:form>
+                                <!--<h:link class="nav-link" outcome="index" value="Cerrar Sesión"></h:link>-->
+                                <!--<a class="nav-link" href="/Optica/faces/Login.xhtml">Iniciar Sesión</a>-->
+                            </li>
+                            <!--                            <li class="nav-item" style="margin-left: 10px; margin-right: 10px;">
+                                                            <h:form>
+                                                                <h:commandButton action="{clientesController.logout()}" class="btn btn-outline-light" value="Cerrar sesión">
+                                                                </h:commandButton>
+                                                            </h:form>
+                                                            <h:link class="nav-link" outcome="index" value="Cerrar Sesión"></h:link>
+                                                            <a class="nav-link" href="/Optica/faces/Login.xhtml">Iniciar Sesión</a>
+                                                        </li>-->
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </ui:insert>
+        <ui:insert name="body"></ui:insert>
     </h:body>
 
 </html>

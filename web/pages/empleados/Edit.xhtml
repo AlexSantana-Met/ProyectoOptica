@@ -6,43 +6,68 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.EditEmpleadosTitle}"></h:outputText>
-        </ui:define>
         <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditEmpleadosLabel_idEmpleadoPk}" for="idEmpleadoPk" />
-                    <h:inputText id="idEmpleadoPk" value="#{empleadosController.selected.idEmpleadoPk}" title="#{bundle.EditEmpleadosTitle_idEmpleadoPk}" required="true" requiredMessage="#{bundle.EditEmpleadosRequiredMessage_idEmpleadoPk}"/>
-                    <h:outputLabel value="#{bundle.EditEmpleadosLabel_nombre}" for="nombre" />
-                    <h:inputText id="nombre" value="#{empleadosController.selected.nombre}" title="#{bundle.EditEmpleadosTitle_nombre}" required="true" requiredMessage="#{bundle.EditEmpleadosRequiredMessage_nombre}"/>
-                    <h:outputLabel value="#{bundle.EditEmpleadosLabel_apellidoPaterno}" for="apellidoPaterno" />
-                    <h:inputText id="apellidoPaterno" value="#{empleadosController.selected.apellidoPaterno}" title="#{bundle.EditEmpleadosTitle_apellidoPaterno}" required="true" requiredMessage="#{bundle.EditEmpleadosRequiredMessage_apellidoPaterno}"/>
-                    <h:outputLabel value="#{bundle.EditEmpleadosLabel_apellidoMaterno}" for="apellidoMaterno" />
-                    <h:inputText id="apellidoMaterno" value="#{empleadosController.selected.apellidoMaterno}" title="#{bundle.EditEmpleadosTitle_apellidoMaterno}" required="true" requiredMessage="#{bundle.EditEmpleadosRequiredMessage_apellidoMaterno}"/>
-                    <h:outputLabel value="#{bundle.EditEmpleadosLabel_correo}" for="correo" />
-                    <h:inputText id="correo" value="#{empleadosController.selected.correo}" title="#{bundle.EditEmpleadosTitle_correo}" />
-                    <h:outputLabel value="#{bundle.EditEmpleadosLabel_telefono}" for="telefono" />
-                    <h:inputText id="telefono" value="#{empleadosController.selected.telefono}" title="#{bundle.EditEmpleadosTitle_telefono}" />
-                    <h:outputLabel value="#{bundle.EditEmpleadosLabel_status}" for="status" />
-                    <h:inputText id="status" value="#{empleadosController.selected.status}" title="#{bundle.EditEmpleadosTitle_status}" required="true" requiredMessage="#{bundle.EditEmpleadosRequiredMessage_status}"/>
-                    <h:outputLabel value="#{bundle.EditEmpleadosLabel_idPuestoFk}" for="idPuestoFk" />
-                    <h:selectOneMenu id="idPuestoFk" value="#{empleadosController.selected.idPuestoFk}" title="#{bundle.EditEmpleadosTitle_idPuestoFk}" required="true" requiredMessage="#{bundle.EditEmpleadosRequiredMessage_idPuestoFk}">
-                        <f:selectItems value="#{puestosController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                </h:panelGrid>
-                <h:commandLink action="#{empleadosController.update}" value="#{bundle.EditEmpleadosSaveLink}"/>
-                <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditEmpleadosViewLink}"/>
-                <br />
-                <h:commandLink action="#{empleadosController.prepareList}" value="#{bundle.EditEmpleadosShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditEmpleadosIndexLink}" />
+                <div style="display: none !important;">
+                    <h:inputText value="#{empleadosController.verificaSesion}"></h:inputText>
+                </div>
+                <div class="card" style="padding-left: 100px; padding-right: 100px;">
+                    <div class="card-title" style="text-align: center; margin-top: 30px;">
+                        <h3>Detalle de Cita</h3>
+                    </div>    
+                    <div class="card-body" id="lista-citas">
+                        <h:panelGroup id="messagePanel" layout="block">
+                            <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                        </h:panelGroup>
+                        <div style="border: 1px rgba(200,200,200,.8) solid; border-radius: 5px; padding: 20px 20px;">
+                            <div class="row">
+                                <div class="offset-1 col-md-4">
+                                    <strong><h:outputLabel value="Nombre: " for="nombre" /></strong>
+                                    <h:inputText id="nombre" value="#{empleadosController.selected.nombre}" class="form-control" required="true" requiredMessage="#{bundle.EditEmpleadosRequiredMessage_nombre}"/>
+                                </div>
+                                <div class="col-md-3">
+                                    <strong><h:outputLabel value="Apellido Paterno: " for="app" /></strong>
+                                    <h:inputText id="app" value="#{empleadosController.selected.apellidoPaterno}" class="form-control" required="true" requiredMessage="#{bundle.EditEmpleadosRequiredMessage_nombre}"/>
+                                </div>
+                                <div class="col-md-3">
+                                    <strong><h:outputLabel value="Apellido Materno: " for="apm" /></strong>
+                                    <h:inputText id="apm" value="#{empleadosController.selected.apellidoMaterno}" class="form-control" required="true" requiredMessage="#{bundle.EditEmpleadosRequiredMessage_nombre}"/>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="offset-1 col-md-4">
+                                    <strong><h:outputLabel value="Correo: " for="email" /></strong>
+                                    <h:inputText id="email" value="#{empleadosController.selected.correo}" class="form-control" required="true" requiredMessage="#{bundle.EditEmpleadosRequiredMessage_nombre}"/>
+                                </div>
+                                <div class="col-md-3">
+                                    <strong><h:outputLabel value="Teléfono: " for="tel" /></strong>
+                                    <h:inputText id="tel" value="#{empleadosController.selected.telefono}" class="form-control" required="true" requiredMessage="#{bundle.EditEmpleadosRequiredMessage_nombre}"/>
+                                </div>
+                                <div class="col-md-3">
+                                    <strong><h:outputLabel value="Status: " for="sta" /></strong>
+                                    <h:selectOneMenu id="statusCita" value="#{empleadosController.selected.status}" required="true" requiredMessage="#{bundle.EditCitasRequiredMessage_status}" class=" input-perfil" style="border: 1px solid rgba(200,200,200.8);">
+                                        <f:selectItems value="#{empleadosController.estadoEmpleado}" />
+                                    </h:selectOneMenu>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="offset-1 col-md-4">
+                                    <h:outputLabel value="Puesto de Empleado: " for="idPuestoFk" />
+                                    <h:selectOneMenu id="idPuestoFk" value="#{empleadosController.selected.idPuestoFk}" title="#{bundle.EditEmpleadosTitle_idPuestoFk}" required="true" class=" input-perfil" style="border: 1px solid rgba(200,200,200.8);" requiredMessage="#{bundle.EditEmpleadosRequiredMessage_idPuestoFk}">
+                                        <f:selectItems value="#{puestosController.itemsAvailableSelectOne}"/>
+                                    </h:selectOneMenu>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="offset-4 col-md-4">
+                        <h:commandLink action="#{empleadosController.update}" value="Guardar Datos" class="btn btn-block btn-success"/>
+                    </div>
+                </div>
             </h:form>
         </ui:define>
     </ui:composition>

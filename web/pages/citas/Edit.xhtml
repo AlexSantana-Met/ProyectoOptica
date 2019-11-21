@@ -6,53 +6,85 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.EditCitasTitle}"></h:outputText>
-        </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditCitasLabel_idCitaPk}" for="idCitaPk" />
-                    <h:inputText id="idCitaPk" value="#{citasController.selected.idCitaPk}" title="#{bundle.EditCitasTitle_idCitaPk}" required="true" requiredMessage="#{bundle.EditCitasRequiredMessage_idCitaPk}"/>
-                    <h:outputLabel value="#{bundle.EditCitasLabel_fechaCita}" for="fechaCita" />
-                    <h:inputText id="fechaCita" value="#{citasController.selected.fechaCita}" title="#{bundle.EditCitasTitle_fechaCita}" required="true" requiredMessage="#{bundle.EditCitasRequiredMessage_fechaCita}">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.EditCitasLabel_horaCita}" for="horaCita" />
-                    <h:inputText id="horaCita" value="#{citasController.selected.horaCita}" title="#{bundle.EditCitasTitle_horaCita}" required="true" requiredMessage="#{bundle.EditCitasRequiredMessage_horaCita}">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.EditCitasLabel_descripcion}" for="descripcion" />
-                    <h:inputText id="descripcion" value="#{citasController.selected.descripcion}" title="#{bundle.EditCitasTitle_descripcion}" required="true" requiredMessage="#{bundle.EditCitasRequiredMessage_descripcion}"/>
-                    <h:outputLabel value="#{bundle.EditCitasLabel_respuestaCita}" for="respuestaCita" />
-                    <h:inputText id="respuestaCita" value="#{citasController.selected.respuestaCita}" title="#{bundle.EditCitasTitle_respuestaCita}" />
-                    <h:outputLabel value="#{bundle.EditCitasLabel_status}" for="status" />
-                    <h:inputText id="status" value="#{citasController.selected.status}" title="#{bundle.EditCitasTitle_status}" required="true" requiredMessage="#{bundle.EditCitasRequiredMessage_status}"/>
-                    <h:outputLabel value="#{bundle.EditCitasLabel_idClienteFk}" for="idClienteFk" />
-                    <h:selectOneMenu id="idClienteFk" value="#{citasController.selected.idClienteFk}" title="#{bundle.EditCitasTitle_idClienteFk}" required="true" requiredMessage="#{bundle.EditCitasRequiredMessage_idClienteFk}">
-                        <f:selectItems value="#{clientesController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditCitasLabel_idEmpleadoFk}" for="idEmpleadoFk" />
-                    <h:selectOneMenu id="idEmpleadoFk" value="#{citasController.selected.idEmpleadoFk}" title="#{bundle.EditCitasTitle_idEmpleadoFk}" required="true" requiredMessage="#{bundle.EditCitasRequiredMessage_idEmpleadoFk}">
-                        <f:selectItems value="#{empleadosController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditCitasLabel_tipoCita}" for="tipoCita" />
-                    <h:selectOneMenu id="tipoCita" value="#{citasController.selected.tipoCita}" title="#{bundle.EditCitasTitle_tipoCita}" required="true" requiredMessage="#{bundle.EditCitasRequiredMessage_tipoCita}">
-                        <f:selectItems value="#{tiposCitasController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                </h:panelGrid>
-                <h:commandLink action="#{citasController.update}" value="#{bundle.EditCitasSaveLink}"/>
+                <div style="display: none !important;">
+                    <h:inputText value="#{citasController.verificaSesion}"></h:inputText>
+                </div>
+                <div class="card" style="padding-left: 100px; padding-right: 100px;">
+                    <div class="card-title" style="text-align: center; margin-top: 30px;">
+                        <h3>Detalle de Cita</h3>
+                    </div>    
+                    <div class="card-body" id="lista-citas">
+                        <h:panelGroup id="messagePanel" layout="block">
+                            <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                        </h:panelGroup>
+                        <div style="border: 1px rgba(200,200,200,.8) solid; border-radius: 5px; padding: 20px 20px;">
+                            <div class="row">
+                                <div class="offset-6 col-md-3">
+                                    <strong><h:outputText value="Fecha de Cita: "/></strong>
+                                    <h:outputText value="#{citasController.selected.fechaCita}" title="#{bundle.ViewCitasTitle_fechaCita}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                                    </h:outputText>    
+                                </div>
+                                <div class="col-md-3 ">
+                                    <strong><h:outputText value="Hora de Cita: "/></strong>
+                                    <h:outputText value="#{citasController.selected.horaCita}" title="#{bundle.ViewCitasTitle_horaCita}">
+                                        <f:convertDateTime pattern="HH:mm" />
+                                    </h:outputText>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="col-md-4 offset-1">
+                                    <strong><h:outputText value="Paciente: "/></strong>
+                                    <h:outputText value="#{clientesController.nombrePaciente(citasController.selected.idClienteFk.idClientePk)}" title="#{bundle.ViewCitasTitle_idClienteFk}"/>
+                                </div>
+                                <div class="col-md-4 offset-1">
+                                    <strong><h:outputText value="Especialista: "/></strong>
+                                    <h:outputText value="#{empleadosController.nombreEmpleado(citasController.selected.idEmpleadoFk.idEmpleadoPk)}" title="#{bundle.ViewCitasTitle_idEmpleadoFk}"/>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="col-md-4 offset-1">
+                                    <strong><h:outputText value="Tipo de cita: "/></strong>
+                                    <h:outputText value="#{citasController.tipoCita(citasController.selected.tipoCita.idTipoPk)}" title="#{bundle.ViewCitasTitle_tipoCita}"/>
+                                </div>
+                                <div class="col-md-4 offset-1">
+                                    <strong><h:outputText value="Estado: "/></strong>
+                                    <h:selectOneMenu id="statusCita" value="#{citasController.selected.status}" required="true" requiredMessage="#{bundle.EditCitasRequiredMessage_status}" class=" input-perfil" style="border: 1px solid rgba(200,200,200.8); width: 150px;">
+                                        <f:selectItems value="#{citasController.tiposCitasDisponibles}" />
+                                    </h:selectOneMenu>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="col-md-10 offset-1">
+                                    <strong><h:outputText value="Descripción: "/></strong>
+                                    <h:outputText value="#{citasController.selected.descripcion}" title="#{bundle.ViewCitasTitle_descripcion}"/>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="col-md-10 offset-1">
+                                    <strong><h:outputText value="Respuesta: "/></strong>
+                                    <h:inputTextarea id="respuestaCita" value="#{citasController.selected.respuestaCita}" class="form-control"/>
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="offset-4 col-md-4">
+                        <h:commandLink action="#{citasController.update}" value="Guardar" class="btn btn-block btn-success"/>
+                    </div>
+                </div>
                 <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditCitasViewLink}"/>
-                <br />
-                <h:commandLink action="#{citasController.prepareList}" value="#{bundle.EditCitasShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditCitasIndexLink}" />
             </h:form>
         </ui:define>
     </ui:composition>

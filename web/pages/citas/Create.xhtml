@@ -16,31 +16,31 @@
             <h:form>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreateCitasLabel_idCitaPk}" for="idCitaPk" />
-                    <h:inputText id="idCitaPk" value="#{citasController.selected.idCitaPk}" title="#{bundle.CreateCitasTitle_idCitaPk}" required="true" requiredMessage="#{bundle.CreateCitasRequiredMessage_idCitaPk}"/>
+                    <h:inputText id="idCitaPk" value="#{citasController.selected.idCitaPk}" title="#{bundle.CreateCitasTitle_idCitaPk}" class="input-perfil" required="true" requiredMessage="#{bundle.CreateCitasRequiredMessage_idCitaPk}"/>
                     <h:outputLabel value="#{bundle.CreateCitasLabel_fechaCita}" for="fechaCita" />
-                    <h:inputText id="fechaCita" value="#{citasController.selected.fechaCita}" title="#{bundle.CreateCitasTitle_fechaCita}" required="true" requiredMessage="#{bundle.CreateCitasRequiredMessage_fechaCita}">
+                    <h:inputText id="fechaCita" value="#{citasController.selected.fechaCita}" title="#{bundle.CreateCitasTitle_fechaCita}" class="input-perfil" required="true" requiredMessage="#{bundle.CreateCitasRequiredMessage_fechaCita}">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:inputText>
                     <h:outputLabel value="#{bundle.CreateCitasLabel_horaCita}" for="horaCita" />
-                    <h:inputText id="horaCita" value="#{citasController.selected.horaCita}" title="#{bundle.CreateCitasTitle_horaCita}" required="true" requiredMessage="#{bundle.CreateCitasRequiredMessage_horaCita}">
+                    <h:inputText id="horaCita" value="#{citasController.selected.horaCita}" title="#{bundle.CreateCitasTitle_horaCita}" class="input-perfil" required="true" requiredMessage="#{bundle.CreateCitasRequiredMessage_horaCita}">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:inputText>
                     <h:outputLabel value="#{bundle.CreateCitasLabel_descripcion}" for="descripcion" />
-                    <h:inputText id="descripcion" value="#{citasController.selected.descripcion}" title="#{bundle.CreateCitasTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateCitasRequiredMessage_descripcion}"/>
+                    <h:inputText id="descripcion" value="#{citasController.selected.descripcion}" title="#{bundle.CreateCitasTitle_descripcion}" class="input-perfil" required="true" requiredMessage="#{bundle.CreateCitasRequiredMessage_descripcion}"/>
                     <h:outputLabel value="#{bundle.CreateCitasLabel_respuestaCita}" for="respuestaCita" />
-                    <h:inputText id="respuestaCita" value="#{citasController.selected.respuestaCita}" title="#{bundle.CreateCitasTitle_respuestaCita}" />
+                    <h:inputText id="respuestaCita" value="#{citasController.selected.respuestaCita}" class="input-perfil" title="#{bundle.CreateCitasTitle_respuestaCita}" />
                     <h:outputLabel value="#{bundle.CreateCitasLabel_status}" for="status" />
-                    <h:inputText id="status" value="#{citasController.selected.status}" title="#{bundle.CreateCitasTitle_status}" required="true" requiredMessage="#{bundle.CreateCitasRequiredMessage_status}"/>
+                    <h:inputText id="status" value="#{citasController.selected.status}" title="#{bundle.CreateCitasTitle_status}" required="true" class="input-perfil" requiredMessage="#{bundle.CreateCitasRequiredMessage_status}"/>
                     <h:outputLabel value="#{bundle.CreateCitasLabel_idClienteFk}" for="idClienteFk" />
-                    <h:selectOneMenu id="idClienteFk" value="#{citasController.selected.idClienteFk}" title="#{bundle.CreateCitasTitle_idClienteFk}" required="true" requiredMessage="#{bundle.CreateCitasRequiredMessage_idClienteFk}">
+                    <h:selectOneMenu id="idClienteFk" value="#{citasController.selected.idClienteFk}" title="#{bundle.CreateCitasTitle_idClienteFk}" class="input-perfil" required="true" requiredMessage="#{bundle.CreateCitasRequiredMessage_idClienteFk}">
                         <f:selectItems value="#{clientesController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.CreateCitasLabel_idEmpleadoFk}" for="idEmpleadoFk" />
-                    <h:selectOneMenu id="idEmpleadoFk" value="#{citasController.selected.idEmpleadoFk}" title="#{bundle.CreateCitasTitle_idEmpleadoFk}" required="true" requiredMessage="#{bundle.CreateCitasRequiredMessage_idEmpleadoFk}">
+                    <h:selectOneMenu id="idEmpleadoFk" value="#{citasController.selected.idEmpleadoFk}" title="#{bundle.CreateCitasTitle_idEmpleadoFk}" class="input-perfil" required="true" requiredMessage="#{bundle.CreateCitasRequiredMessage_idEmpleadoFk}">
                         <f:selectItems value="#{empleadosController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.CreateCitasLabel_tipoCita}" for="tipoCita" />
-                    <h:selectOneMenu id="tipoCita" value="#{citasController.selected.tipoCita}" title="#{bundle.CreateCitasTitle_tipoCita}" required="true" requiredMessage="#{bundle.CreateCitasRequiredMessage_tipoCita}">
+                    <h:selectOneMenu id="tipoCita" value="#{citasController.selected.tipoCita}" title="#{bundle.CreateCitasTitle_tipoCita}" required="true" class="input-perfil" requiredMessage="#{bundle.CreateCitasRequiredMessage_tipoCita}">
                         <f:selectItems value="#{tiposCitasController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>

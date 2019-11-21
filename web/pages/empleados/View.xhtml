@@ -6,46 +6,63 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ViewEmpleadosTitle}"></h:outputText>
-        </ui:define>
         <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewEmpleadosLabel_idEmpleadoPk}"/>
-                    <h:outputText value="#{empleadosController.selected.idEmpleadoPk}" title="#{bundle.ViewEmpleadosTitle_idEmpleadoPk}"/>
-                    <h:outputText value="#{bundle.ViewEmpleadosLabel_nombre}"/>
-                    <h:outputText value="#{empleadosController.selected.nombre}" title="#{bundle.ViewEmpleadosTitle_nombre}"/>
-                    <h:outputText value="#{bundle.ViewEmpleadosLabel_apellidoPaterno}"/>
-                    <h:outputText value="#{empleadosController.selected.apellidoPaterno}" title="#{bundle.ViewEmpleadosTitle_apellidoPaterno}"/>
-                    <h:outputText value="#{bundle.ViewEmpleadosLabel_apellidoMaterno}"/>
-                    <h:outputText value="#{empleadosController.selected.apellidoMaterno}" title="#{bundle.ViewEmpleadosTitle_apellidoMaterno}"/>
-                    <h:outputText value="#{bundle.ViewEmpleadosLabel_correo}"/>
-                    <h:outputText value="#{empleadosController.selected.correo}" title="#{bundle.ViewEmpleadosTitle_correo}"/>
-                    <h:outputText value="#{bundle.ViewEmpleadosLabel_telefono}"/>
-                    <h:outputText value="#{empleadosController.selected.telefono}" title="#{bundle.ViewEmpleadosTitle_telefono}"/>
-                    <h:outputText value="#{bundle.ViewEmpleadosLabel_status}"/>
-                    <h:outputText value="#{empleadosController.selected.status}" title="#{bundle.ViewEmpleadosTitle_status}"/>
-                    <h:outputText value="#{bundle.ViewEmpleadosLabel_idPuestoFk}"/>
-                    <h:outputText value="#{empleadosController.selected.idPuestoFk}" title="#{bundle.ViewEmpleadosTitle_idPuestoFk}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{empleadosController.destroyAndView}" value="#{bundle.ViewEmpleadosDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewEmpleadosEditLink}"/>
-                <br />
-                <h:commandLink action="#{empleadosController.prepareCreate}" value="#{bundle.ViewEmpleadosCreateLink}" />
-                <br />
-                <h:commandLink action="#{empleadosController.prepareList}" value="#{bundle.ViewEmpleadosShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewEmpleadosIndexLink}"/>
-
-            </h:form>
+            <div class="card" style="padding-left: 100px; padding-right: 100px;">
+                <div class="card-title" style="text-align: center; margin-top: 30px;">
+                    <h3>Datos del Empleado</h3>
+                </div>    
+                <div class="card-body" id="lista-citas">
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                    </h:panelGroup>
+                    <h:form>
+                        <div style="display: none !important;">
+                            <h:inputText value="#{empleadosController.verificaSesion}"></h:inputText>
+                        </div>
+                        <div style="border: 1px rgba(200,200,200,.8) solid; border-radius: 5px; padding: 20px 20px;">
+                            <div class="row">
+                                <div class="offset-9 col-md-3">
+                                    <strong><h:outputText value="ID de Empleado: "/></strong>
+                                    <h:outputText value="#{empleadosController.selected.idEmpleadoPk}" title="#{bundle.ViewEmpleadosTitle_idEmpleadoPk}"/>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="offset-1 col-md-5">
+                                    <strong><h:outputText value="Nombre de Empleado: "/></strong>
+                                    <h:outputText value="#{empleadosController.nombreEmpleado(empleadosController.selected.idEmpleadoPk)}" title="#{bundle.ViewEmpleadosTitle_idEmpleadoPk}"/>
+                                </div>
+                                <div class="offset-1 col-md-5">
+                                    <strong><h:outputText value="Correo: "/></strong>
+                                    <h:outputText value="#{empleadosController.selected.correo}" title="#{bundle.ViewEmpleadosTitle_idEmpleadoPk}"/>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="offset-1 col-md-3">
+                                    <strong><h:outputText value="Teléfono: "/></strong>
+                                    <h:outputText value="#{empleadosController.selected.telefono}" title="#{bundle.ViewEmpleadosTitle_idEmpleadoPk}"/>
+                                </div>
+                                <div class="offset-1 col-md-2">
+                                    <strong><h:outputText value="Status: "/></strong>
+                                    <h:outputText value="#{empleadosController.statusEmpleado(empleadosController.selected.status)}" title="#{bundle.ViewEmpleadosTitle_idEmpleadoPk}"/>
+                                </div>
+                                <div class="offset-1 col-md-3">
+                                    <strong><h:outputText value="Puesto: "/></strong>
+                                    <h:outputText value="#{puestosController.puestoEmpleado(empleadosController.selected.idPuestoFk.idPuestoPk)}" title="#{bundle.ViewEmpleadosTitle_idEmpleadoPk}"/>
+                                </div>
+                            </div>
+                            <br /> 
+                            <br /> 
+                            <div class="row">
+                                <div class="col-md-4 offset-4">
+                                    <h:commandLink action="#{empleadosController.prepareList}" value="Todos los Empleados" class="btn btn-block btn-primary"/>
+                                </div>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
         </ui:define>
     </ui:composition>
 

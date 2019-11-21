@@ -6,6 +6,7 @@ import com.controllers1.util.PaginationHelper;
 import com.facades.PuestosFacade;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -190,6 +191,10 @@ public class PuestosController implements Serializable {
 
     public Puestos getPuestos(java.math.BigDecimal id) {
         return ejbFacade.find(id);
+    }
+    
+    public String puestoEmpleado(java.math.BigDecimal id) {
+        return getPuestos(id).getNombrePuesto();
     }
 
     @FacesConverter(forClass = Puestos.class)

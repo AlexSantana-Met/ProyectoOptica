@@ -6,40 +6,49 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ViewContactoTitle}"></h:outputText>
-        </ui:define>
         <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewContactoLabel_idContactoPk}"/>
-                    <h:outputText value="#{contactoController.selected.idContactoPk}" title="#{bundle.ViewContactoTitle_idContactoPk}"/>
-                    <h:outputText value="#{bundle.ViewContactoLabel_correo}"/>
-                    <h:outputText value="#{contactoController.selected.correo}" title="#{bundle.ViewContactoTitle_correo}"/>
-                    <h:outputText value="#{bundle.ViewContactoLabel_nombre}"/>
-                    <h:outputText value="#{contactoController.selected.nombre}" title="#{bundle.ViewContactoTitle_nombre}"/>
-                    <h:outputText value="#{bundle.ViewContactoLabel_mensaje}"/>
-                    <h:outputText value="#{contactoController.selected.mensaje}" title="#{bundle.ViewContactoTitle_mensaje}"/>
-                    <h:outputText value="#{bundle.ViewContactoLabel_status}"/>
-                    <h:outputText value="#{contactoController.selected.status}" title="#{bundle.ViewContactoTitle_status}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{contactoController.destroyAndView}" value="#{bundle.ViewContactoDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewContactoEditLink}"/>
-                <br />
-                <h:commandLink action="#{contactoController.prepareCreate}" value="#{bundle.ViewContactoCreateLink}" />
-                <br />
-                <h:commandLink action="#{contactoController.prepareList}" value="#{bundle.ViewContactoShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewContactoIndexLink}"/>
+            <div class="card" style="padding-left: 100px; padding-right: 100px;">
+                <div class="card-title" style="text-align: center; margin-top: 30px;">
+                    <h3>Detalles del Mensaje</h3>
+                </div>    
+                <div class="card-body" id="lista-citas">
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                    </h:panelGroup>
+                    <h:form>
+                        <div style="display: none !important;">
+                            <h:inputText value="#{contactoController.verificaSesion}"></h:inputText>
+                        </div>
+                        <div style="border: 1px rgba(200,200,200,.8) solid; border-radius: 5px; padding: 20px 20px;">
+                            <div class="row">
+                                <div class="offset-1 col-md-4">
+                                    <strong><h:outputText value="Nombre de remitente: "/></strong>
+                                    <h:outputText value="#{contactoController.selected.correo}" title="#{bundle.ViewContactoTitle_correo}"/>
+                                </div>
+                                <div class="offset-1 col-md-4">
+                                    <strong><h:outputText value="Correo de remitente: "/></strong>
+                                    <h:outputText value="#{contactoController.selected.correo}" title="#{bundle.ViewContactoTitle_correo}"/>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="offset-1 col-md-10">
+                                    <strong><h:outputText value="Mensaje: "/></strong>
+                                    <h:outputText value="#{contactoController.selected.mensaje}" title="#{bundle.ViewContactoTitle_mensaje}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-4 offset-4">
+                                <h:commandLink action="#{empleadosController.prepareList}" value="Todos los Mensajes" class="btn btn-block btn-primary"/>
+                            </div>
+                        </div>
 
-            </h:form>
+                    </h:form>
+                </div>
+            </div>
         </ui:define>
     </ui:composition>
 

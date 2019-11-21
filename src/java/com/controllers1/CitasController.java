@@ -272,6 +272,14 @@ public class CitasController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
+    public SelectItem[] getTiposCitasDisponibles() {
+        SelectItem[] tipos = {
+            new SelectItem(new BigDecimal(1), "Pendiente"),
+            new SelectItem(new BigDecimal(2), "Atendida")
+        };
+        return tipos;
+    }
+
     public Citas getCitas(java.math.BigDecimal id) {
         return ejbFacade.find(id);
     }
@@ -378,10 +386,33 @@ public class CitasController implements Serializable {
             List<Citas> citas = getFacade().findAll();
             citasCliente = new ArrayList<>();
             for (Citas cita : citas) {
-                if(cita.getIdClienteFk().getIdClientePk() == id) {
+                if (cita.getIdClienteFk().getIdClientePk() == id) {
                     citasCliente.add(cita);
                 }
             }
+        }
+    }
+
+    public String getVerificaSesion() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        HttpSession session = (HttpSession) ec.getSession(false);
+        if (session.getAttribute("admin") == null) {
+            try {
+                ec.redirect(ec.getRequestContextPath() + "/faces/index-admin.xhtml");
+            } catch (IOException ex) {
+
+            }
+            return "";
+        } else {
+            try {
+                if (session.getAttribute("cliente") != null) {
+                    ec.redirect(ec.getRequestContextPath() + "/faces/index-admin.xhtml");
+                }
+            } catch (IOException ex) {
+
+            }
+            return "admin";
         }
     }
 
@@ -401,8 +432,12 @@ public class CitasController implements Serializable {
         return new SimpleDateFormat("HH:mm").format(date);
     }
 
-    public String statusCita(int status) {
-        return status == 1 ? "Pendiente" : "Atendida";
+    public String statusCita(java.math.BigInteger status) {
+        return status.intValue() == 1 ? "Pendiente" : "Atendida";
+    }
+
+    public String tipoCita(java.math.BigInteger tipo) {
+        return tipo.intValue() == 1 ? "Revisión Ocular" : "Cambio de Lentes";
     }
 
     @FacesConverter(forClass = Citas.class)

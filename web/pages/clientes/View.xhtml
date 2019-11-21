@@ -6,52 +6,76 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ViewClientesTitle}"></h:outputText>
-        </ui:define>
         <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewClientesLabel_idClientePk}"/>
-                    <h:outputText value="#{clientesController.selected.idClientePk}" title="#{bundle.ViewClientesTitle_idClientePk}"/>
-                    <h:outputText value="#{bundle.ViewClientesLabel_correo}"/>
-                    <h:outputText value="#{clientesController.selected.correo}" title="#{bundle.ViewClientesTitle_correo}"/>
-                    <h:outputText value="#{bundle.ViewClientesLabel_pass}"/>
-                    <h:outputText value="#{clientesController.selected.pass}" title="#{bundle.ViewClientesTitle_pass}"/>
-                    <h:outputText value="#{bundle.ViewClientesLabel_nombre}"/>
-                    <h:outputText value="#{clientesController.selected.nombre}" title="#{bundle.ViewClientesTitle_nombre}"/>
-                    <h:outputText value="#{bundle.ViewClientesLabel_apellidoPaterno}"/>
-                    <h:outputText value="#{clientesController.selected.apellidoPaterno}" title="#{bundle.ViewClientesTitle_apellidoPaterno}"/>
-                    <h:outputText value="#{bundle.ViewClientesLabel_apellidoMaterno}"/>
-                    <h:outputText value="#{clientesController.selected.apellidoMaterno}" title="#{bundle.ViewClientesTitle_apellidoMaterno}"/>
-                    <h:outputText value="#{bundle.ViewClientesLabel_fechaNacimiento}"/>
-                    <h:outputText value="#{clientesController.selected.fechaNacimiento}" title="#{bundle.ViewClientesTitle_fechaNacimiento}">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:outputText>
-                    <h:outputText value="#{bundle.ViewClientesLabel_direccion}"/>
-                    <h:outputText value="#{clientesController.selected.direccion}" title="#{bundle.ViewClientesTitle_direccion}"/>
-                    <h:outputText value="#{bundle.ViewClientesLabel_telefono}"/>
-                    <h:outputText value="#{clientesController.selected.telefono}" title="#{bundle.ViewClientesTitle_telefono}"/>
-                    <h:outputText value="#{bundle.ViewClientesLabel_status}"/>
-                    <h:outputText value="#{clientesController.selected.status}" title="#{bundle.ViewClientesTitle_status}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{clientesController.destroyAndView}" value="#{bundle.ViewClientesDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewClientesEditLink}"/>
-                <br />
-                <h:commandLink action="#{clientesController.prepareCreate}" value="#{bundle.ViewClientesCreateLink}" />
-                <br />
-                <h:commandLink action="#{clientesController.prepareList}" value="#{bundle.ViewClientesShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewClientesIndexLink}"/>
-
-            </h:form>
+            <div class="card" style="padding-left: 100px; padding-right: 100px;">
+                <div class="card-title" style="text-align: center; margin-top: 30px;">
+                    <h3>Datos del Empleado</h3>
+                </div>    
+                <div class="card-body" id="lista-citas">
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                    </h:panelGroup>
+                    <h:form>
+                        <div style="display: none !important;">
+                            <h:inputText value="#{clientesController.verificaSesion}"></h:inputText>
+                        </div>
+                        <div style="border: 1px rgba(200,200,200,.8) solid; border-radius: 5px; padding: 20px 20px;">
+                            <div class="row">
+                                <div class="offset-1 col-md-2">
+                                    <h:graphicImage alt="Imagen Usuario" library="images" name="#{clientesController.selected.imagen}" style="width: 100%; padding-left: auto; padding-right: auto;"></h:graphicImage>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="row">
+                                        <div class="offset-9 col-md-3">
+                                            <strong><h:outputText value="ID de Cliente: "/></strong>
+                                            <h:outputText value="#{clientesController.selected.idClientePk}" title="#{bundle.ViewClientesTitle_idClientePk}"/>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="offset-1 col-md-4">
+                                            <strong><h:outputText value="Nombre de Cliente: "/></strong>
+                                            <h:outputText value="#{clientesController.nombrePaciente(clientesController.selected.idClientePk)}"/>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <strong><h:outputText value="Correo: "/></strong>
+                                            <h:outputText value="#{clientesController.selected.correo}"/>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <strong><h:outputText value="Fecha de Nacimiento: "/></strong>
+                                            <h:outputText value="#{clientesController.selected.fechaNacimiento}">
+                                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                                            </h:outputText>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="offset-1 col-md-3">
+                                            <strong><h:outputText value="Dirección: "/></strong>
+                                            <h:outputText value="#{clientesController.selected.direccion}"/>
+                                        </div>
+                                        <div class="offset-1 col-md-3">
+                                            <strong><h:outputText value="Teléfono: "/></strong>
+                                            <h:outputText value="#{clientesController.selected.telefono}"/>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <strong><h:outputText value="Status: "/></strong>
+                                            <h:outputText value="#{clientesController.statusCliente(clientesController.selected.status)}"/>
+                                        </div>
+                                    </div>
+                                    <br /> 
+                                </div>
+                            </div>
+                        </div>
+                        <br /> 
+                        <div class="row">
+                            <div class="col-md-4 offset-4">
+                                <h:commandLink action="#{clientesController.prepareList}" value="Todos los Empleados" class="btn btn-block btn-primary"/>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
         </ui:define>
     </ui:composition>
 

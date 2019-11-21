@@ -6,100 +6,83 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ListClientesTitle}"></h:outputText>
-        </ui:define>
         <ui:define name="body">
-            <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListClientesEmpty}" rendered="#{clientesController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{clientesController.items.rowCount > 0}">
-                    <h:outputText value="#{clientesController.pagination.pageFirstItem + 1}..#{clientesController.pagination.pageLastItem + 1}/#{clientesController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{clientesController.previous}" value="#{bundle.Previous} #{clientesController.pagination.pageSize}" rendered="#{clientesController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{clientesController.next}" value="#{bundle.Next} #{clientesController.pagination.pageSize}" rendered="#{clientesController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{clientesController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListClientesTitle_idClientePk}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idClientePk}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListClientesTitle_correo}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.correo}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListClientesTitle_pass}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.pass}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListClientesTitle_nombre}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nombre}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListClientesTitle_apellidoPaterno}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.apellidoPaterno}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListClientesTitle_apellidoMaterno}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.apellidoMaterno}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListClientesTitle_fechaNacimiento}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.fechaNacimiento}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                            </h:outputText>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListClientesTitle_direccion}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.direccion}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListClientesTitle_telefono}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.telefono}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListClientesTitle_status}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.status}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{clientesController.prepareView}" value="#{bundle.ListClientesViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{clientesController.prepareEdit}" value="#{bundle.ListClientesEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{clientesController.destroy}" value="#{bundle.ListClientesDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
-                <br />
-                <h:commandLink action="#{clientesController.prepareCreate}" value="#{bundle.ListClientesCreateLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ListClientesIndexLink}"/>
-            </h:form>
+            <div class="card" style="padding-left: 30px; padding-right: 30px;">
+                <div class="card-title" style="text-align: center; margin-top: 30px;">
+                    <h3>Clientes Registrados</h3>
+                </div>
+                <div class="card-body" id="lista-citas">
+                    <h:form >
+                        <div style="display: none !important;">
+                            <h:inputText value="#{clientesController.verificaSesion}"></h:inputText>
+                        </div>
+                        <h:panelGroup id="messagePanel" layout="block">
+                            <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                        </h:panelGroup>
+                        <h:outputText escape="false" value="#{bundle.ListClientesEmpty}" rendered="#{clientesController.items.rowCount == 0}"/>
+                        <h:panelGroup rendered="#{clientesController.items.rowCount > 0}">
+                            <h:dataTable value="#{clientesController.items}" var="item" class="table" style="text-align: center;">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Correo"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.correo}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Nombre"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.nombre}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Apellido Paterno"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.apellidoPaterno}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Apellido Materno"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.apellidoMaterno}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Fecha de Nacimiento"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.fechaNacimiento}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                                    </h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Dirección"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.direccion}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Teléfono"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.telefono}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Status"/>
+                                    </f:facet>
+                                    <h:outputText value="#{clientesController.statusCliente(item.status)}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Acciones"/>
+                                    </f:facet>
+                                    <h:commandLink action="#{clientesController.prepareView}" class="fa fa-eye btn btn-block btn-info"/>
+                                </h:column>
+                            </h:dataTable>
+                        </h:panelGroup>
+                    </h:form>
+                </div>
+            </div>
         </ui:define>
     </ui:composition>
 
