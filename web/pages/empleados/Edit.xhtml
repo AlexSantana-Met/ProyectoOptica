@@ -7,10 +7,11 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="body">
+            <f:event type="preRenderView" listener="#{empleadosController.verificaSesion()}" />
             <h:form>
-                <div style="display: none !important;">
-                    <h:inputText value="#{empleadosController.verificaSesion}"></h:inputText>
-                </div>
+<!--                <div style="display: none !important;">
+                    <h:inputText value="{empleadosController.verificaSesion()}"></h:inputText>
+                </div>-->
                 <div class="card" style="padding-left: 100px; padding-right: 100px;">
                     <div class="card-title" style="text-align: center; margin-top: 30px;">
                         <h3>Detalle de Cita</h3>

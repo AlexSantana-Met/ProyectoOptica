@@ -254,7 +254,7 @@ public class ClientesController implements Serializable {
     public Clientes getClientes(java.math.BigDecimal id) {
         return ejbFacade.find(id);
     }
-    
+
     public void login() {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         FacesContext fc = FacesContext.getCurrentInstance();
@@ -299,6 +299,7 @@ public class ClientesController implements Serializable {
         current = new Clientes();
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {
+            ec.invalidateSession();
             ec.redirect(ec.getRequestContextPath() + "/faces/index.xhtml");
         } catch (IOException ex) {
 
@@ -459,8 +460,7 @@ public class ClientesController implements Serializable {
         return status.intValue() == 1 ? "Activo" : "Inactivo";
     }
 
-    public String getVerificaSesion() {
-        FacesContext fc = FacesContext.getCurrentInstance();
+    public void verificaSesion() {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         HttpSession session = (HttpSession) ec.getSession(false);
         if (session.getAttribute("admin") == null) {
@@ -469,7 +469,6 @@ public class ClientesController implements Serializable {
             } catch (IOException ex) {
 
             }
-            return "";
         } else {
             try {
                 if (session.getAttribute("cliente") != null) {
@@ -478,8 +477,8 @@ public class ClientesController implements Serializable {
             } catch (IOException ex) {
 
             }
-            return "admin";
         }
+//        return "admin";
     }
 
     @FacesConverter(forClass = Clientes.class)

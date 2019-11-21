@@ -7,6 +7,7 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="body">
+            <f:event type="preRenderView" listener="#{contactoController.verificaSesion()}" />
             <div class="card" style="padding-left: 100px; padding-right: 100px;">
                 <div class="card-title" style="text-align: center; margin-top: 30px;">
                     <h3>Detalles del Mensaje</h3>
@@ -16,9 +17,9 @@
                         <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                     </h:panelGroup>
                     <h:form>
-                        <div style="display: none !important;">
-                            <h:inputText value="#{contactoController.verificaSesion}"></h:inputText>
-                        </div>
+<!--                        <div style="display: none !important;">
+                            <h:inputText value="#{contactoController.verificaSesion()}"></h:inputText>
+                        </div>-->
                         <div style="border: 1px rgba(200,200,200,.8) solid; border-radius: 5px; padding: 20px 20px;">
                             <div class="row">
                                 <div class="offset-1 col-md-4">

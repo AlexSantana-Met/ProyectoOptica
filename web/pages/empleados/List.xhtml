@@ -8,15 +8,16 @@
     <ui:composition template="/template.xhtml">
 
         <ui:define name="body">
+            <f:event type="preRenderView" listener="#{empleadosController.verificaSesion()}" />
             <div class="card" style="padding-left: 30px; padding-right: 30px;">
                 <div class="card-title" style="text-align: center; margin-top: 30px;">
                     <h3>Empleados</h3>
                 </div>    
                 <div class="card-body" id="lista-citas">
                     <h:form styleClass="jsfcrud_list_form">
-                        <div style="display: none !important;">
-                            <h:inputText value="#{empleadosController.verificaSesion}"></h:inputText>
-                        </div>
+<!--                        <div style="display: none !important;">
+                            <h:inputText value="#{empleadosController.verificaSesion()}"></h:inputText>
+                        </div>-->
                         <h:panelGroup id="messagePanel" layout="block">
                             <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                         </h:panelGroup>

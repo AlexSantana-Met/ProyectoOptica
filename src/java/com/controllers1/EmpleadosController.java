@@ -255,6 +255,7 @@ public class EmpleadosController implements Serializable {
         session.removeAttribute("admin");
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {
+            ec.invalidateSession();
             ec.redirect(ec.getRequestContextPath() + "/faces/index-admin.xhtml");
         } catch (IOException ex) {
 
@@ -269,7 +270,7 @@ public class EmpleadosController implements Serializable {
         this.pass = pass;
     }
 
-    public String getVerificaSesion() {
+    public void verificaSesion() {
         FacesContext fc = FacesContext.getCurrentInstance();
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         HttpSession session = (HttpSession) ec.getSession(false);
@@ -279,7 +280,6 @@ public class EmpleadosController implements Serializable {
             } catch (IOException ex) {
 
             }
-            return "";
         } else {
             try {
                 if (session.getAttribute("cliente") != null) {
@@ -288,8 +288,8 @@ public class EmpleadosController implements Serializable {
             } catch (IOException ex) {
 
             }
-            return "admin";
         }
+        
     }
 
     @FacesConverter(forClass = Empleados.class)

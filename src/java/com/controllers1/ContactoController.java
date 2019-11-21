@@ -205,7 +205,7 @@ public class ContactoController implements Serializable {
         return ejbFacade.find(id);
     }
 
-    public String getVerificaSesion() {
+    public void verificaSesion() {
         FacesContext fc = FacesContext.getCurrentInstance();
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         HttpSession session = (HttpSession) ec.getSession(false);
@@ -215,7 +215,6 @@ public class ContactoController implements Serializable {
             } catch (IOException ex) {
 
             }
-            return "";
         } else {
             try {
                 if (session.getAttribute("cliente") != null) {
@@ -224,9 +223,10 @@ public class ContactoController implements Serializable {
             } catch (IOException ex) {
 
             }
-            return "admin";
         }
+//        return "admin";
     }
+    
 
     @FacesConverter(forClass = Contacto.class)
     public static class ContactoControllerConverter implements Converter {

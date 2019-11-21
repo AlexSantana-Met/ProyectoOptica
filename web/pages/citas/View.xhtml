@@ -6,6 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="/template.xhtml">
+        <f:event type="preRenderView" listener="#{citasController.verificaSesion()}" />
         <ui:define name="body">
             <div class="card" style="padding-left: 100px; padding-right: 100px;">
                 <div class="card-title" style="text-align: center; margin-top: 30px;">
@@ -16,9 +17,9 @@
                         <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                     </h:panelGroup>
                     <h:form>
-                        <div style="display: none !important;">
-                            <h:inputText value="#{citasController.verificaSesion}"></h:inputText>
-                        </div>
+<!--                        <div style="display: none !important;">
+                            <h:inputText value="{citasController.verificaSesion()}"></h:inputText>
+                        </div>-->
                         <div style="border: 1px rgba(200,200,200,.8) solid; border-radius: 5px; padding: 20px 20px;">
                             <div class="row">
                                 <div class="offset-6 col-md-3">

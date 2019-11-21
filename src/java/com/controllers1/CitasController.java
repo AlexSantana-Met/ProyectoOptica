@@ -393,7 +393,7 @@ public class CitasController implements Serializable {
         }
     }
 
-    public String getVerificaSesion() {
+    public void verificaSesion() {
         FacesContext fc = FacesContext.getCurrentInstance();
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         HttpSession session = (HttpSession) ec.getSession(false);
@@ -403,7 +403,6 @@ public class CitasController implements Serializable {
             } catch (IOException ex) {
 
             }
-            return "";
         } else {
             try {
                 if (session.getAttribute("cliente") != null) {
@@ -412,8 +411,8 @@ public class CitasController implements Serializable {
             } catch (IOException ex) {
 
             }
-            return "admin";
         }
+//        return "admin";
     }
 
     public List<Citas> getCitasCliente() {
