@@ -29,6 +29,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
@@ -381,7 +382,7 @@ public class ClientesController implements Serializable {
         this.file = file;
     }
 
-    public void NuevoDocumento() {
+    public void NuevoDocumento(AjaxBehaviorEvent event) {
         if (!file.getFileName().isEmpty()) {
             if (SubirArchivo()) {
                 current.setImagen(nombreArchivo);
