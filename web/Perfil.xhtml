@@ -10,6 +10,7 @@
     <h:body>
         <ui:composition template="templates/main-logged.xhtml">
             <ui:define name="content">
+                <f:event type="preRenderView" listener="#{clientesController.verificaCliente()}" />
                 <div align="center">
                     <h:form class="panel-registro" style="text-align: left;">
                         <h3 style="color: white; text-align: center">INFORMACIÓN PERSONAL</h3>

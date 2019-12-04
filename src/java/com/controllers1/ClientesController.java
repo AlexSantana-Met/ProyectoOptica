@@ -308,20 +308,20 @@ public class ClientesController implements Serializable {
     }
 
     public String getNombreCompleto() {
-        FacesContext fc = FacesContext.getCurrentInstance();
-        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        HttpSession session = (HttpSession) ec.getSession(false);
-        if (session.getAttribute("cliente") == null) {
-            try {
-                current = new Clientes();
-                ec.redirect(ec.getRequestContextPath() + "/faces/Login.xhtml");
-            } catch (IOException ex) {
-
-            }
-            return "";
-        } else {
-            return current.getNombre() + " " + current.getApellidoPaterno() + " " + current.getApellidoMaterno();
-        }
+//        FacesContext fc = FacesContext.getCurrentInstance();
+//        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+//        HttpSession session = (HttpSession) ec.getSession(false);
+//        if (session.getAttribute("cliente") == null) {
+//            try {
+//                current = new Clientes();
+//                ec.redirect(ec.getRequestContextPath() + "/faces/Login.xhtml");
+//            } catch (IOException ex) {
+//
+//            }
+//            return "";
+//        } else {
+        return current.getNombre() + " " + current.getApellidoPaterno() + " " + current.getApellidoMaterno();
+//        }
     }
 
     public void mostrarCitasCliente() {
@@ -351,6 +351,25 @@ public class ClientesController implements Serializable {
             }
         }
 //        System.out.println(current.getApellidoMaterno());
+    }
+
+    public void verificaCliente() {
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        if (session.getAttribute("cliente") == null) {
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/faces/index.xhtml");
+            } catch (IOException ex) {
+
+            }
+        } else {
+            try {
+                if (session.getAttribute("admin") != null) {
+                    FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/faces/index.xhtml");
+                }
+            } catch (IOException ex) {
+
+            }
+        }
     }
 
     public List<Citas> getCitasCliente() {

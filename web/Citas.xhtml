@@ -10,6 +10,7 @@
     <h:body>
         <ui:composition template="templates/main-logged.xhtml">
             <ui:define name="content">
+                <f:event type="preRenderView" listener="#{citasController.verificaCliente()}" />
                 <div align="center" class="panel-citas" id="div-citas">
                     <script>
                         $(document).ready(function () {

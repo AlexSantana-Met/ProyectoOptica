@@ -25,6 +25,7 @@
     </h:head>
 
     <h:body>
+        <f:event type="preRenderView" listener="#{clientesController.verificaCliente()}" />
         <!--<f:event listener="{clientesController.nombreCompleto()}" type="type"></f:event>-->
         <div class="fondo">
         </div>
@@ -53,11 +54,11 @@
                 </nav>
             </ui:insert>
         </div>
-        <div style="display: none !important;">
-            <h:form>
-                <h:inputText value="#{clientesController.nombreCompleto}"></h:inputText>
-            </h:form>
-        </div>
+        <!--        <div style="display: none !important;">
+                    <h:form>
+                        <h:inputText value="{clientesController.nombreCompleto}"></h:inputText>
+                    </h:form>
+                </div>-->
         <div id="content" class="center_content">
             <h:form class="panel-editar" style="text-align: left;" enctype="multipart/form-data">
                 <h3 style="color: white; text-align: center">INFORMACIÓN PERSONAL</h3>

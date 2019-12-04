@@ -22,6 +22,7 @@
         <script name="jquery/jquery.js" library="primefaces"></script>
     </h:head>
     <h:body>
+        <f:event type="preRenderView" listener="#{citasController.verificaCliente()}" />
         <div class="fondo">
         </div>
 

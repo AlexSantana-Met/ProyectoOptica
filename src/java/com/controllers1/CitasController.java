@@ -375,20 +375,39 @@ public class CitasController implements Serializable {
         ExternalContext ec = fc.getExternalContext();
         HttpSession session = (HttpSession) ec.getSession(false);
 //        citasCliente = new ArrayList<>();
+//        if (session.getAttribute("cliente") == null) {
+//            try {
+//                current = new Citas();
+//                ec.redirect(ec.getRequestContextPath() + "/faces/Login.xhtml");
+//            } catch (IOException ex) {
+//            }
+//        } else {
+        BigDecimal id = ((Clientes) session.getAttribute("cliente")).getIdClientePk();
+        List<Citas> citas = getFacade().findAll();
+        citasCliente = new ArrayList<>();
+        for (Citas cita : citas) {
+            if (cita.getIdClienteFk().getIdClientePk() == id) {
+                citasCliente.add(cita);
+            }
+        }
+//    }
+    }
+
+    public void verificaCliente() {
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         if (session.getAttribute("cliente") == null) {
             try {
-                current = new Citas();
-                ec.redirect(ec.getRequestContextPath() + "/faces/Login.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/faces/index.xhtml");
             } catch (IOException ex) {
+
             }
         } else {
-            BigDecimal id = ((Clientes) session.getAttribute("cliente")).getIdClientePk();
-            List<Citas> citas = getFacade().findAll();
-            citasCliente = new ArrayList<>();
-            for (Citas cita : citas) {
-                if (cita.getIdClienteFk().getIdClientePk() == id) {
-                    citasCliente.add(cita);
+            try {
+                if (session.getAttribute("admin") != null) {
+                    FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/faces/index.xhtml");
                 }
+            } catch (IOException ex) {
+
             }
         }
     }
@@ -437,6 +456,7 @@ public class CitasController implements Serializable {
 
     public String tipoCita(java.math.BigInteger tipo) {
         return tipo.intValue() == 1 ? "Revisión Ocular" : "Cambio de Lentes";
+
     }
 
     @FacesConverter(forClass = Citas.class)
